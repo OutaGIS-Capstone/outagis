@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import Tabs from "./Tabs";
+import Navbar from "./Navbar";
 import "./App.css";
 
 const client = generateClient<Schema>();
@@ -43,7 +44,7 @@ function App() {
 
 	return (
 		<main>
-			<img className="logo" src="/src/assets/bch-logo.svg" alt="BCH Logo"></img>
+		    <Navbar/>
 			<div>
 			  <Tabs>
 				<div label="View Outage Map">

@@ -1,0 +1,38 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-left .logo {
+  display: flex;
+  height: 5.5em;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-right .help-img, .phone-img, .user-img {
+  display: flex;
+  height: 3em;
+  padding: 0.5em;
+}
+
+@media (max-width: 768px) {
+	.navbar-center .nav-links {
+		display: none;
+	}
+
+	.navbar-right {
+		display: flex;
+		align-items: center;
+	}
+
+	.navbar-right .hamburger-menu {
+		display: block;
+		font-size: 1.5rem;
+		cursor: pointer;
+	}
+}
