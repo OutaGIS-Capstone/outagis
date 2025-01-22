@@ -1,36 +1,11 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from 'react-router-dom';
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
-import Home from './pages/Home';
-import Help from './pages/Help';
-import Contact from './pages/Contact';
-import Login from './pages/Login';
-import Tabs from "./components/Tabs";
-import Navbar from "./components/Navbar";
+import Tabs from "../components/Tabs";
 
-import "./App.css";
-
-// URL routing reference: https://hygraph.com/blog/routing-in-react
-
-function App() {
-   return (
-      <main>
-	    <Navbar />
-         <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/help" element={<Help />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/login" element={<Login />} />
-         </Routes>
-      </main>
-   );
-};
-
-/*
 const client = generateClient<Schema>();
 
-function App() {
+function Home() {
 	const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
 	useEffect(() => {
@@ -66,8 +41,6 @@ function App() {
 	}
 
 	return (
-		<main>
-		    <Navbar/>
 			<div>
 			  <Tabs>
 				<div label="View Outage Map">
@@ -88,9 +61,7 @@ function App() {
 				</div>
 			  </Tabs>
 			</div>
-		</main>
 	);
 }
-*/
 
-export default App;
+export default Home;

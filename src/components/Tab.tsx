@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // Reference: https://www.digitalocean.com/community/tutorials/react-tabs-component

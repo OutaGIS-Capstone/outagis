@@ -16,8 +16,8 @@
 
 .navbar-right .help-img, .phone-img, .user-img {
   display: flex;
-  height: 3em;
-  padding: 0.5em;
+  height: 2em;
+  padding: 0.3em;
 }
 
 @media (max-width: 768px) {
