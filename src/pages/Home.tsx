@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import Tabs from "../components/Tabs";
 
 import './Home.css';
 
 function Home() {
+	const navigateTo = useNavigate();
+
 	function openTab(evt, tabName) {
 		var i, tabcontent, tablinks;
 		console.log(tabName); // DEBUG
@@ -41,7 +44,7 @@ function Home() {
 							</a>
 						</div>
 						<div className="next-button">
-							<button>Next</button>
+							<button onClick={() => navigateTo('/info')}>Next</button>
 						</div>
 					</div>
 				</div>

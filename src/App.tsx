@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Help from './pages/Help';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
+import Info from './pages/Info';
 import Tabs from "./components/Tabs";
 import Navbar from "./components/Navbar";
 
@@ -22,6 +23,7 @@ function App() {
             <Route path="/help" element={<Help />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/info" element={<Info />} />
          </Routes>
       </main>
    );

@@ -27,10 +27,6 @@ In the root directory of this repo, run `npm install`.
 To relaunch the local dev server, run `npm run dev` (and Ctrl-C to terminate).
 Navigate to the local link that appears in the terminal (i.e. `http://localhost:5173`).
 
-## Dependencies
-
-TODO: Natalie is playing around with [react-jsonschema-form](https://rjsf-team.github.io/react-jsonschema-form/docs/) to see if it can be used for the field form for submitting outage info.
-
 ## Security
 
 See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
