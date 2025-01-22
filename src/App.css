@@ -4,26 +4,3 @@
   padding: 2rem;
   text-align: center;
 }
-
-.tab-list {
-  border-bottom: 1px solid #ccc;
-  padding-left: 0;
-}
-
-.tab-list-item {
-  display: inline-block;
-  list-style: none;
-  margin-bottom: -1px;
-  padding: 0.5rem 0.75rem;
-}
-
-.tab-list-item:hover {
-  background-color: rgb(157, 218, 222);
-}
-
-.tab-list-active {
-  background-color: rgb(123, 194, 200);
-  border: solid #ccc;
-  border-width: 1px 1px 0 1px;
-  border-bottom: 0.15em solid black;
-}

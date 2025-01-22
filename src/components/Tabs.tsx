@@ -2,6 +2,8 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Tab from './Tab';
 
+import "./Tabs.css";
+
 // Reference: https://www.digitalocean.com/community/tutorials/react-tabs-component
 
 class Tabs extends Component {

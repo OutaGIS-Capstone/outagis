@@ -1,27 +1,9 @@
 import { useEffect, useState } from "react";
-import type { Schema } from "../amplify/data/resource";
-import { generateClient } from "aws-amplify/data";
 import Tabs from "../components/Tabs";
 
-const client = generateClient<Schema>();
+import './Home.css';
 
 function Home() {
-	const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
-
-	useEffect(() => {
-		client.models.Todo.observeQuery().subscribe({
-		next: (data) => setTodos([...data.items]),
-		});
-	}, []);
-
-	function createTodo() {
-		client.models.Todo.create({ content: window.prompt("Todo content") });
-	}
-
-	function deleteTodo(id: string) {
-		client.models.Todo.delete({ id })
-	}
-
 	function openTab(evt, tabName) {
 		var i, tabcontent, tablinks;
 		console.log(tabName); // DEBUG
@@ -41,26 +23,30 @@ function Home() {
 	}
 
 	return (
-			<div>
-			  <Tabs>
+		<div>
+			<Tabs>
 				<div label="View Outage Map">
 					<div className="map-container">
-					<iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-123.29681396484376%2C49.194717870320666%2C-123.03726196289064%2C49.320422679265924&amp;layer=mapnik" title="Open Street Maps Placeholder"></iframe>
+						<iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-123.29681396484376%2C49.194717870320666%2C-123.03726196289064%2C49.320422679265924&amp;layer=mapnik" title="Open Street Maps Placeholder"></iframe>
 					</div>
 				</div>
 				<div label="Report an Outage">
-					<button onClick={createTodo}>+ new</button>
-					<ul>
-						{todos.map((todo) => (
-							<li 
-							onClick={() => deleteTodo(todo.id)}
-							key={todo.id}>{todo.content}
-							</li>
-						))}
-					</ul>
+					<div className="map-placeholder">
+						<iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-123.29681396484376%2C49.194717870320666%2C-123.03726196289064%2C49.320422679265924&amp;layer=mapnik" title="Outage Reporting Map Placeholder"></iframe>
+					</div>
+					<div className="next-nav">
+						<div className="help-link">
+							<a href="/help">
+								<p>Click here to watch a tutorial video</p>
+							</a>
+						</div>
+						<div className="next-button">
+							<button>Next</button>
+						</div>
+					</div>
 				</div>
-			  </Tabs>
-			</div>
+			</Tabs>
+		</div>
 	);
 }
 

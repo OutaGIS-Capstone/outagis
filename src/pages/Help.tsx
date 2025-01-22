@@ -1,7 +1,14 @@
 function Help() {
 	return (
 	  <div>
-		<p>This is the Help page</p>
+		<div>
+		  <p>This page will contain a tutorial video about how to use outage reporting tool</p>
+		</div>
+		<div>
+		  <a href="/">
+			<p>Navigate back to main page</p>
+		  </a>
+		</div>
 	  </div>
 	);
 };
