@@ -3,22 +3,10 @@ form {
   margin: 0 auto;
 }
 
-h1 {
-  font-weight: 100;
-  color: white;
-  text-align: center;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgb(79, 98, 148);
-}
-
 .form {
   background: #0e101c;
   max-width: 400px;
   margin: 0 auto;
-}
-
-p::before {
-  display: inline;
 }
 
 input {
@@ -56,23 +44,6 @@ input[type="submit"] {
 button[type="submit"]:hover,
 input[type="submit"]:hover {
   background: #bf1650;
-}
-
-button[type="submit"]:active,
-input[type="button"]:active,
-input[type="submit"]:active {
-  transition: 0.3s all;
-  transform: translateY(3px);
-  border: 1px solid transparent;
-  opacity: 0.8;
-}
-
-input:disabled {
-  opacity: 0.4;
-}
-
-input[type="button"]:hover {
-  transition: 0.3s all;
 }
 
 button {
