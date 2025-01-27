@@ -44,7 +44,7 @@ function Home() {
 							</a>
 						</div>
 						<div className="next-button">
-							<button onClick={() => navigateTo('/info')}>Next</button>
+							<button onClick={() => navigateTo('/inputform')}>Next</button>
 						</div>
 					</div>
 				</div>

@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import Help from './pages/Help';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
-import Info from './pages/Info';
+import InputForm from './pages/InputForm';
 import Tabs from "./components/Tabs";
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
 
@@ -23,7 +23,7 @@ function App() {
             <Route path="/help" element={<Help />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/info" element={<Info />} />
+            <Route path="/inputform" element={<InputForm />} />
          </Routes>
       </main>
    );
