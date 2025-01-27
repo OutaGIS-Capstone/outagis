@@ -1,4 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form"
+import { useNavigate } from 'react-router-dom';
 
 import './InputForm.css';
 
@@ -14,13 +15,18 @@ type Inputs = {
 }
 
 function InputForm() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+
+  const onSubmit = async (data) => {
+	  // TODO: actually send the form data to the backend
+      navigate("/"); // automatically redirect back to the main page
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

@@ -41,7 +41,6 @@ ul {
   margin: 8px 0;
   border: 1px solid black;
   gap: 1px;
-  background-color: black;
   border-radius: 8px;
   overflow: auto;
 }

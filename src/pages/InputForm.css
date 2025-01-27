@@ -17,10 +17,6 @@ h1 {
   margin: 0 auto;
 }
 
-p {
-  color: white;
-}
-
 p::before {
   display: inline;
 }
