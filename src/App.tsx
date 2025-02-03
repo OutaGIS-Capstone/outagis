@@ -1,29 +1,32 @@
 import { useEffect, useState } from "react";
+import { Routes, Route } from 'react-router-dom';
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
-import Navbar from "./Navbar.tsx";
+import Home from './pages/Home';
+import Help from './pages/Help';
+import Contact from './pages/Contact';
+import Login from './pages/Login';
+import InputForm from './pages/InputForm';
+import Tabs from "./components/Tabs";
+import ResponsiveAppBar from "./components/ResponsiveAppBar";
 
-const client = generateClient<Schema>();
+import "./App.css";
+
+// URL routing reference: https://hygraph.com/blog/routing-in-react
 
 function App() {
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
-
-  useEffect(() => {
-    client.models.Todo.observeQuery().subscribe({
-      next: (data) => setTodos([...data.items]),
-    });
-  }, []);
-
-  function createTodo() {
-    client.models.Todo.create({ content: window.prompt("Todo content") });
-  }
-
-  return (
-    <main>
-      <Navbar />
-      
-    </main>
-  );
-}
+   return (
+      <main>
+	    <ResponsiveAppBar />
+         <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/help" element={<Help />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/inputform" element={<InputForm />} />
+         </Routes>
+      </main>
+   );
+};
 
 export default App;

@@ -1,0 +1,36 @@
+.map-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+}
+
+.map-placeholder {
+  position: relative;
+  overflow: hidden;
+  height: min-content;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+}
+
+.next-nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+}
+
+.next-button * {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  color: white;
+}
+
+.next-button *:hover {
+  border-color: #646cff;
+}
