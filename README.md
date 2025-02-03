@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 # outagis
 Primary repository to store all source code and related testing material, information, and documentation for the UBC 2024W Capstone project HA-30: OutaGIS
-=======
 ## AWS Amplify React+Vite Starter Template
 
 This repository provides a starter template for creating applications using React+Vite and AWS Amplify, emphasizing easy setup for authentication, API, and database capabilities.
@@ -27,4 +25,3 @@ See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more inform
 ## License
 
 This library is licensed under the MIT-0 License. See the LICENSE file.
->>>>>>> template-repo/main
