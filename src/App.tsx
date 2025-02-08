@@ -1,39 +1,32 @@
 import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
+import NavBar from "./NavBar.tsx";
+import OutageList from "./OutageList";
+import Home from "./Home.tsx";
+import Report from "./Report.tsx";
+import Form from "./Form.tsx";
+import Signin from "./Signin.tsx";
+import RegionDetails from "./RegionDetails.tsx";
+import Account from "./Account.tsx";
 
 const client = generateClient<Schema>();
 
 function App() {
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
-
-  useEffect(() => {
-    client.models.Todo.observeQuery().subscribe({
-      next: (data) => setTodos([...data.items]),
-    });
-  }, []);
-
-  function createTodo() {
-    client.models.Todo.create({ content: window.prompt("Todo content") });
-  }
-
   return (
-    <main>
-      <h1>My todos</h1>
-      <button onClick={createTodo}>+ new</button>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.content}</li>
-        ))}
-      </ul>
-      <div>
-        🥳 App successfully hosted. Try creating a new todo.
-        <br />
-        <a href="https://docs.amplify.aws/react/start/quickstart/#make-frontend-updates">
-          Review next step of this tutorial.
-        </a>
-      </div>
-    </main>
+    <Router>
+      <NavBar />
+      <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/outage-list" element={<OutageList />} />
+      <Route path="/report-outage" element={<Report />} />
+      <Route path="/report-form" element={<Form />} />
+      <Route path="/signin" element={<Signin />} /> 
+      <Route path="/region/:regionName" element={<RegionDetails />} />
+      <Route path="/account" element={<Account />} />            
+      </Routes>
+    </Router>
   );
 }
 
