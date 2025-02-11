@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Box, Container, Typography } from "@mui/material";
+import { Button, Box, Typography } from "@mui/material";
 
 const Report: React.FC = () => {
   const navigate = useNavigate();
