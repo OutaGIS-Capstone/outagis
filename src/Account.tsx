@@ -39,22 +39,22 @@ function Account() {
     });
   };
 
-  const updateUserInfo = async () => {
-    try {
-      const user = await getCurrentUser();
-      await updateUserAttributes(user, {
-        email: userInfo.email,
-        name: userInfo.name,
-      });
-      if (userInfo.newPassword) {
-        await resetPassword({ username: userInfo.email });
-      }
-      setSuccess(true);
-    } catch (err) {
-      console.error("Error updating user info", err);
-      setError('Failed to update user information.');
-    }
-  };
+  // const updateUserInfo = async () => {
+  //   try {
+  //     const user = await getCurrentUser();
+  //     await updateUserAttributes(user, {
+  //       email: userInfo.email,
+  //       name: userInfo.name,
+  //     });
+  //     if (userInfo.newPassword) {
+  //       await resetPassword({ username: userInfo.email });
+  //     }
+  //     setSuccess(true);
+  //   } catch (err) {
+  //     console.error("Error updating user info", err);
+  //     setError('Failed to update user information.');
+  //   }
+  // };
 
   return (
     <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -76,7 +76,7 @@ function Account() {
               <TextField label="New Password" variant="outlined" fullWidth name="newPassword" type="password" value={userInfo.newPassword} onChange={handleChange} margin="normal" />
             </Grid>
             <Grid item>
-              <Button variant="contained" color="primary" fullWidth onClick={updateUserInfo} sx={{ marginTop: 2 }}>
+              <Button variant="contained" color="primary" fullWidth sx={{ marginTop: 2 }}>
                 Save Changes
               </Button>
             </Grid>
