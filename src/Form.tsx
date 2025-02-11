@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { Snackbar, Alert } from "@mui/material";
 
 const Form: React.FC = () => {
   const { register, handleSubmit, control } = useForm({
@@ -12,8 +14,17 @@ const Form: React.FC = () => {
     },
   });
 
+  const navigate = useNavigate();
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
   const onSubmit = (data: any) => {
     console.log("Form submitted:", data);
+    setOpenSnackbar(true);
+
+    // Delay navigation slightly to allow Snackbar to be seen
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
   };
 
   return (
@@ -48,6 +59,12 @@ const Form: React.FC = () => {
         </div>
         <button type="submit" style={{ width: "100%", background: "#007bff", color: "white", padding: "10px", borderRadius: "4px", border: "none", cursor: "pointer", transition: "background 0.3s ease" }}>Submit</button>
       </form>
+
+      <Snackbar open={openSnackbar} autoHideDuration={20000} onClose={() => setOpenSnackbar(false)}>
+        <Alert severity="success" sx={{ width: "100%" }}>
+          Thank you for submitting! If you have any other issues, please contact 1 800 BCHYDRO (1 800 224 9376) or *HYDRO (*49376). 
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

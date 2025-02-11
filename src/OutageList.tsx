@@ -21,7 +21,6 @@ const OutageList: React.FC = () => {
         Report an Outage
       </Typography>
 
-      {/* Description */}
       <Typography variant="body1" gutterBottom>
         Lost power? Check the outage map to see if we’re aware of the outage. If your outage isn’t shown, call{" "}
         <strong>1 800 BCHYDRO</strong> (1 800 224 9376) or *HYDRO (*49376) on your mobile or log in to{" "}
@@ -32,7 +31,6 @@ const OutageList: React.FC = () => {
         See our <a href="#">outage status definition</a> list to learn what the status of your outage means.
       </Typography>
 
-      {/* Alert Box */}
       <Alert severity="error" sx={{ my: 2 }}>
         <Typography variant="h6">⚠️ Regional alert</Typography>
         <Typography>
@@ -67,12 +65,10 @@ const OutageList: React.FC = () => {
         </Table>
       </TableContainer>
 
-      {/* Last Updated Time */}
       <Typography variant="caption" display="block" gutterBottom>
         Last updated: Feb 5, 3:34 p.m.
       </Typography>
 
-      {/* Find Outages Buttons */}
       <Box sx={{ display: "flex", justifyContent: "space-around", mt: 2 }}>
         <Button variant="outlined">📍 Near me</Button>
         <Button variant="outlined">🏠 Address</Button>

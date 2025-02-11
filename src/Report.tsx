@@ -6,18 +6,18 @@ const Report: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <Container>
-      <Box sx={{ mt: 10, position: "relative", mb: 2 }}>
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+      <Box sx={{ flexGrow: 1, overflow: "hidden", position: "relative", mt: 3, marginTop: "5em"}}>
         <iframe
           src="https://staging.d3hjjykamqdvpx.amplifyapp.com/?page=Page"
           width="100%"
-          height="670em"
+          height="100%"
           style={{ border: "none" }}
           title="Outage Map"
         />
       </Box>
 
-      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 3 }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between", p: 3, alignItems: "center", backgroundColor: "#fff" }}>
         <Typography sx={{ cursor: "pointer", textDecoration: "underline" }}>
           Click here to watch a tutorial video
         </Typography>
@@ -25,7 +25,7 @@ const Report: React.FC = () => {
           Next
         </Button>
       </Box>
-    </Container>
+    </Box>
   );
 };
 

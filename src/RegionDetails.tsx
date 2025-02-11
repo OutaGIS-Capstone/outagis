@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, MenuItem, Select, Button, Link } from "@mui/material";
 
-// Sample detailed outage data
 const outageDetails = [
   { region: "Lower Mainland / Sunshine Coast", municipality: "Richmond", offSince: "Feb 5, 9:57 a.m.", status: "Crew on-site", area: "9000 block RYAN PL", affected: "< 5", cause: "Planned work", updated: "Feb 5, 2:54 p.m." },
   { region: "Lower Mainland / Sunshine Coast", municipality: "Sechelt", offSince: "Feb 5, 12:39 p.m.", status: "Crew assigned", area: "12700 block LAGOON RD", affected: "17", cause: "Under investigation", updated: "Feb 5, 3:03 p.m." },
@@ -27,7 +26,6 @@ const RegionDetails: React.FC = () => {
       <Typography variant="h5" gutterBottom>{regionName}</Typography>
       <Typography variant="body1">Total customers affected: {filteredOutages.reduce((sum, o) => sum + (isNaN(Number(o.affected)) ? 0 : Number(o.affected)), 0)}</Typography>
 
-      {/* Municipality Dropdown */}
       <Box sx={{ mt: 2, mb: 2 }}>
         <Typography variant="body2" display="inline" sx={{ mr: 1 }}>Municipality:</Typography>
         <Select value={selectedMunicipality} onChange={(e) => setSelectedMunicipality(e.target.value)}>
@@ -36,7 +34,6 @@ const RegionDetails: React.FC = () => {
         </Select>
       </Box>
 
-      {/* Outage Table */}
       <TableContainer component={Paper}>
         <Table>
           <TableHead>

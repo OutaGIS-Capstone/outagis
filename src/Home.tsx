@@ -1,19 +1,28 @@
-import { Container, Typography } from "@mui/material";
+import { Container, Typography, Box } from "@mui/material";
+import { useAdmin } from "./AdminContext";
 
 const Home = () => {
+  const { isAdmin } = useAdmin();
+
+  const iframeSrc = isAdmin
+    ? "https://staging.d5uniwdfp0ytm.amplifyapp.com/"
+    : "https://staging.d3hjjykamqdvpx.amplifyapp.com/";
+
   return (
-    <Container>
-      <Typography variant="h4" sx={{ my: 3 }}>
-        Outages Map
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+      <Typography variant="h4" sx={{ my: 3, px: 2 }}>
+       out
       </Typography>
-      <iframe
-        src="https://staging.d3hjjykamqdvpx.amplifyapp.com/?page=Page"
-        width="100%"
-        height="600px"
-        style={{ border: "none" }}
-        title="ArcGIS Outages Map"
-      />
-    </Container>
+      <Box sx={{ flexGrow: 1, overflow: "hidden" }}>
+        <iframe
+          src={iframeSrc}
+          width="100%"
+          height="100%"
+          style={{ border: "none" }}
+          title="ArcGIS Outages Map"
+        />
+      </Box>
+    </Box>
   );
 };
 

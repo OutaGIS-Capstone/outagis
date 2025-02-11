@@ -1,20 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  IconButton,
-  Typography,
-  Menu,
-  Container,
-  Avatar,
-  Button,
-  Tooltip,
-  MenuItem,
-  Switch,
-} from "@mui/material";
+import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem, Switch } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useAdmin } from "./AdminContext.tsx";
 
@@ -39,12 +26,12 @@ function NavBar() {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
@@ -56,32 +43,10 @@ function NavBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ display: { xs: "flex", md: "none" }, alignItems: "center" }}>
-            <IconButton
-              size="large"
-              aria-label="menu"
-              onClick={handleOpenNavMenu}
-              sx={{ color: "#6D6D6D" }} 
-            >
+            <IconButton size="large" aria-label="menu" onClick={handleOpenNavMenu} color="inherit">
               <MenuIcon />
             </IconButton>
           </Box>
-
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorElNav}
-            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-            keepMounted
-            transformOrigin={{ vertical: "top", horizontal: "left" }}
-            open={Boolean(anchorElNav)}
-            onClose={handleCloseNavMenu}
-            sx={{ display: { xs: "block", md: "none" } }}
-          >
-            {pages.map((page) => (
-              <MenuItem key={page.name} component={Link} to={page.path} onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">{page.name}</Typography>
-              </MenuItem>
-            ))}
-          </Menu>
 
           <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}>
             <img src="/src/assets/bch-full.png" style={{ height: "4em", width: "11em" }} alt="logo" />
@@ -93,12 +58,7 @@ function NavBar() {
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
-                key={page.name}
-                component={Link}
-                to={page.path}
-                sx={{ my: 2, color: "#1f1e1e", display: "block" }}
-              >
+              <Button key={page.name} component={Link} to={page.path} sx={{ my: 2, color: "#1f1e1e", display: "block" }}>
                 {page.name}
               </Button>
             ))}
@@ -150,5 +110,3 @@ function NavBar() {
     </AppBar>
   );
 }
-
-export default NavBar;
