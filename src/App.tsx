@@ -1,6 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import type { Schema } from "../amplify/data/resource";
-import { generateClient } from "aws-amplify/data";
 import NavBar from "./NavBar.tsx";
 import OutageList from "./OutageList";
 import Home from "./Home.tsx";
@@ -9,8 +7,6 @@ import Form from "./Form.tsx";
 import Signin from "./Signin.tsx";
 import RegionDetails from "./RegionDetails.tsx";
 import Account from "./Account.tsx";
-
-const client = generateClient<Schema>();
 
 function App() {
   return (
