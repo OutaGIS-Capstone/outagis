@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Amplify } from 'aws-amplify';
-import { getCurrentUser, updateUserAttributes, signOut, resetPassword } from 'aws-amplify/auth';
+import { getCurrentUser, signOut } from 'aws-amplify/auth';
 import { Button, TextField, Container, Typography, Paper, Grid, Snackbar } from '@mui/material';
 import '@aws-amplify/ui-react/styles.css';
 import outputs from '../amplify_outputs.json';
