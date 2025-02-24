@@ -61,11 +61,6 @@ function Account() {
       <Container maxWidth="xs">
         <Paper sx={{ padding: 4, borderRadius: 2, boxShadow: 3, backgroundColor: '#ffffff' }}>
           <Grid container direction="column" spacing={2} alignItems="center">
-            <Grid item>
-              <Typography variant="h4" color="primary" align="center">
-                Account Settings
-              </Typography>
-            </Grid>
             <Grid item xs={12}>
               <TextField label="Email" variant="outlined" fullWidth name="email" value={userInfo.email} onChange={handleChange} margin="normal" />
             </Grid>

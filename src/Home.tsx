@@ -10,9 +10,6 @@ const Home = () => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-      <Typography variant="h4" sx={{ my: 3, px: 2 }}>
-       out
-      </Typography>
       <Box sx={{ flexGrow: 1, overflow: "hidden" }}>
         <iframe
           src={iframeSrc}
