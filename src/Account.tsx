@@ -65,9 +65,6 @@ function Account() {
               <TextField label="Email" variant="outlined" fullWidth name="email" value={userInfo.email} onChange={handleChange} margin="normal" />
             </Grid>
             <Grid item xs={12}>
-              <TextField label="Name" variant="outlined" fullWidth name="name" value={userInfo.name} onChange={handleChange} margin="normal" />
-            </Grid>
-            <Grid item xs={12}>
               <TextField label="New Password" variant="outlined" fullWidth name="newPassword" type="password" value={userInfo.newPassword} onChange={handleChange} margin="normal" />
             </Grid>
             <Grid item>
