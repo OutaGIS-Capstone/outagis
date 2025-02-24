@@ -17,16 +17,6 @@ function Signin() {
         padding: 2,
       }}
     >
-      <Paper
-        sx={{
-          padding: 4,
-          borderRadius: 2,
-          maxWidth: 400,
-          width: '100%',
-          boxShadow: 3,
-          backgroundColor: '#fff',
-        }}
-      >
         <Authenticator>
           {({ signOut, user }) => (
             <main>
@@ -51,7 +41,6 @@ function Signin() {
             </main>
           )}
         </Authenticator>
-      </Paper>
     </Box>
   );
 }
