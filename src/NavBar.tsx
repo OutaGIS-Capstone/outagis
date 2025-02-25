@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import {
@@ -25,8 +25,9 @@ const pages = [
 ];
 
 function NavBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [activePage, setActivePage] = useState("/"); // Track the active page
 
   const { user, signOut } = useAuthenticator((context) => [context.user]);
   const { isAdmin, toggleAdmin } = useAdmin();
@@ -51,6 +52,10 @@ function NavBar() {
     setAnchorElUser(null);
   };
 
+  const handlePageClick = (path: string) => {
+    setActivePage(path); // Update the active page when a button is clicked
+  };
+
   return (
     <AppBar style={{ backgroundColor: "#F5F5F5" }}>
       <Container maxWidth="xl">
@@ -60,7 +65,7 @@ function NavBar() {
               size="large"
               aria-label="menu"
               onClick={handleOpenNavMenu}
-              sx={{ color: "#6D6D6D" }} 
+              sx={{ color: "#6D6D6D" }}
             >
               <MenuIcon />
             </IconButton>
@@ -77,7 +82,18 @@ function NavBar() {
             sx={{ display: { xs: "block", md: "none" } }}
           >
             {pages.map((page) => (
-              <MenuItem key={page.name} component={Link} to={page.path} onClick={handleCloseNavMenu}>
+              <MenuItem
+                key={page.name}
+                component={Link}
+                to={page.path}
+                onClick={() => {
+                  handleCloseNavMenu();
+                  handlePageClick(page.path); // Update active page
+                }}
+                sx={{
+                  backgroundColor: activePage === page.path ? "#e0e0e0" : "inherit", // Emphasize active page
+                }}
+              >
                 <Typography textAlign="center">{page.name}</Typography>
               </MenuItem>
             ))}
@@ -97,7 +113,13 @@ function NavBar() {
                 key={page.name}
                 component={Link}
                 to={page.path}
-                sx={{ my: 2, color: "#1f1e1e", display: "block" }}
+                onClick={() => handlePageClick(page.path)}
+                sx={{
+                  my: 2,
+                  color:  "#1f1e1e",
+                  display: "block",
+                  fontWeight: activePage === page.path ? "bold" : "normal",
+                }}
               >
                 {page.name}
               </Button>
