@@ -35,7 +35,7 @@ const RegionDetails: React.FC = () => {
       </Box>
 
       <TableContainer component={Paper}>
-        <Table>
+        <Table style={{width: '1px', whiteSpace: 'nowrap'}}>
           <TableHead>
             <TableRow>
               <TableCell><strong>Municipality</strong></TableCell>
