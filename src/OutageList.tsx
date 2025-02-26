@@ -23,7 +23,7 @@ const OutageList: React.FC = () => {
 
       <Typography variant="body1" gutterBottom>
         Lost power? Check the outage map to see if we’re aware of the outage. If your outage isn’t shown, call{" "}
-        <strong>1 800 BCHYDRO</strong> (1 800 224 9376) or *HYDRO (*49376) on your mobile or log in to{" "}
+        <strong>PHONE NUMBR</strong> (1 800 XXX XXXX) or *XXXXX (*XXXXX) on your mobile or log in to{" "}
         <a href="#">report it online</a>.
       </Typography>
       
@@ -44,7 +44,7 @@ const OutageList: React.FC = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell><strong>Region</strong></TableCell>
+              <TableCell align="center"><strong>Region</strong></TableCell>
               <TableCell align="center"><strong>Outages</strong></TableCell>
               <TableCell align="center"><strong>Customers Affected</strong></TableCell>
             </TableRow>
@@ -53,7 +53,7 @@ const OutageList: React.FC = () => {
             {outages.map((row, index) => (
               <TableRow key={index} onClick={() => navigate(`/region/${encodeURIComponent(row.region)}`)} sx={{ cursor: "pointer", "&:hover": { backgroundColor: "#f5f5f5" } }}>
                 <TableCell>
-                  <Link component="button" underline="hover">
+                  <Link component="button" underline="hover" align="left">
                     {row.region}
                   </Link>
                 </TableCell>
