@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import { Amplify } from 'aws-amplify';
 import { getCurrentUser, signOut } from 'aws-amplify/auth';
 import { Button, TextField, Container, Typography, Paper, Grid, Snackbar } from '@mui/material';
@@ -15,6 +16,7 @@ function Account() {
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -37,6 +39,11 @@ function Account() {
       ...userInfo,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const signout_redirect = () => {
+	  signOut();
+	  navigate("/");
   };
 
   // const updateUserInfo = async () => {
@@ -73,7 +80,7 @@ function Account() {
               </Button>
             </Grid>
             <Grid item>
-              <Button variant="outlined" color="secondary" fullWidth onClick={() => signOut()} sx={{ marginTop: 2 }}>
+              <Button variant="outlined" color="secondary" fullWidth onClick={() => signout_redirect()} sx={{ marginTop: 2 }}>
                 Sign Out
               </Button>
             </Grid>
