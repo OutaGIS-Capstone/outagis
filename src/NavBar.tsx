@@ -14,8 +14,14 @@ import {
   Tooltip,
   MenuItem,
   Switch,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  Divider,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from '@mui/icons-material/Close';
 import { useAdmin } from "./AdminContext.tsx";
 
 const pages = [
@@ -25,7 +31,7 @@ const pages = [
 ];
 
 function NavBar() {
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [activePage, setActivePage] = useState("/"); // Track the active page
 
@@ -36,13 +42,16 @@ function NavBar() {
     ? [{ name: "Account", path: "/account" }, { name: "Sign Out" }]
     : [{ name: "Sign In", path: "/signin" }];
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+    const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event.type === "keydown" &&
+        ((event as React.KeyboardEvent).key === "Tab" ||
+          (event as React.KeyboardEvent).key === "Shift")
+      ) {
+        return;
+      }
+      setIsDrawerOpen(open);
+    };
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -53,7 +62,7 @@ function NavBar() {
   };
 
   const handlePageClick = (path: string) => {
-    setActivePage(path); // Update the active page when a button is clicked
+    setActivePage(path);
   };
 
   return (
@@ -64,40 +73,66 @@ function NavBar() {
             <IconButton
               size="large"
               aria-label="menu"
-              onClick={handleOpenNavMenu}
+              onClick={toggleDrawer(true)}
               sx={{ color: "#6D6D6D" }}
             >
               <MenuIcon />
             </IconButton>
           </Box>
 
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorElNav}
-            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-            keepMounted
-            transformOrigin={{ vertical: "top", horizontal: "left" }}
-            open={Boolean(anchorElNav)}
-            onClose={handleCloseNavMenu}
+           <Drawer
+            anchor="left"
+            open={isDrawerOpen}
+            onClose={toggleDrawer(false)}
             sx={{ display: { xs: "block", md: "none" } }}
           >
-            {pages.map((page) => (
-              <MenuItem
-                key={page.name}
-                component={Link}
-                to={page.path}
-                onClick={() => {
-                  handleCloseNavMenu();
-                  handlePageClick(page.path); // Update active page
-                }}
-                sx={{
-                  backgroundColor: activePage === page.path ? "#e0e0e0" : "inherit", // Emphasize active page
-                }}
-              >
-                <Typography textAlign="center">{page.name}</Typography>
-              </MenuItem>
-            ))}
-          </Menu>
+            <Box
+              sx={{ width: 250 }}
+              role="presentation"
+              onClick={toggleDrawer(false)}
+              onKeyDown={toggleDrawer(false)}
+            >
+              <List>
+                <IconButton
+                  size="medium"
+                  aria-label="close"
+                  onClick={toggleDrawer(false)}
+                  sx={{ color: "#6D6D6D" }}
+                >
+                  <CloseIcon />
+                </IconButton>
+
+              </List>
+              <Divider />
+              <List>
+                {pages.map((page) => (
+                  <ListItem
+                    key={page.name}
+                    component={Link}
+                    to={page.path}
+                    onClick={() => handlePageClick(page.path)}
+                    sx={{
+                      color:  "#1f1e1e",
+                      backgroundColor: activePage === page.path ? "#e0e0e0" : "inherit",
+                    }}
+                  >
+                    <ListItemText primary={page.name} />
+                  </ListItem>
+                ))}
+              </List>
+              <Divider />
+              {user && (
+                <List>
+                  <ListItem>
+                    <Typography variant="body1" sx={{ mr: 1 }}>
+                      Admin Mode
+                    </Typography>
+                    <Switch checked={isAdmin} onChange={toggleAdmin} color="primary" />
+                  </ListItem>
+                </List>
+              )}
+            </Box>
+          </Drawer>
 
           <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}>
             <img src="/src/assets/bch-full.png" style={{ height: "4em", width: "11em" }} alt="logo" />
@@ -118,7 +153,7 @@ function NavBar() {
                   my: 2,
                   color:  "#1f1e1e",
                   display: "block",
-                  fontWeight: activePage === page.path ? "bold" : "normal",
+                  backgroundColor: activePage === page.path ? "#e0e0e0" : "inherit",
                 }}
               >
                 {page.name}
@@ -127,8 +162,8 @@ function NavBar() {
           </Box>
 
           {user && (
-            <Box sx={{ mx: 2 }}>
-              <Typography variant="body1" sx={{ color: "#1f1e1e", display: "inline", mr: 1 }}>
+            <Box sx={{ display: { xs: "none", md: "inline"},  mx: 2 }}>
+              <Typography variant="body1" sx={{color: "#1f1e1e", display: "inline", mr: 1 }}>
                 Admin Mode
               </Typography>
               <Switch checked={isAdmin} onChange={toggleAdmin} color="primary" />
