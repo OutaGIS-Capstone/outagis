@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import {
   AppBar,
@@ -14,6 +14,8 @@ import {
   Tooltip,
   MenuItem,
   Switch,
+  Snackbar,
+  Alert
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useAdmin } from "./AdminContext.tsx";
@@ -31,6 +33,9 @@ function NavBar() {
 
   const { user, signOut } = useAuthenticator((context) => [context.user]);
   const { isAdmin, toggleAdmin } = useAdmin();
+
+  const navigate = useNavigate();
+  const [openSignoutSnackbar, setOpenSignoutSnackbar] = useState(false);
 
   const settings = user
     ? [{ name: "Account", path: "/account" }, { name: "Sign Out" }]
@@ -56,7 +61,17 @@ function NavBar() {
     setActivePage(path); // Update the active page when a button is clicked
   };
 
+  const snackbarAndRedirect = () => {
+    setOpenSignoutSnackbar(true);
+
+    // Delay navigation slightly to allow Snackbar to be seen
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
+  };
+
   return (
+	<>
     <AppBar style={{ backgroundColor: "#F5F5F5" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -158,6 +173,7 @@ function NavBar() {
                     handleCloseUserMenu();
                     if (setting.name === "Sign Out") {
                       signOut();
+					  snackbarAndRedirect();
                     }
                   }}
                   {...(setting.name !== "Sign Out" ? { component: Link, to: setting.path } : {})}
@@ -170,6 +186,14 @@ function NavBar() {
         </Toolbar>
       </Container>
     </AppBar>
+	<Box>
+      <Snackbar open={openSignoutSnackbar} autoHideDuration={20000} onClose={() => setOpenSignoutSnackbar(false)}>
+        <Alert severity="success" sx={{ width: "100%" }}>
+          You have been signed out successfully!
+        </Alert>
+      </Snackbar>
+	</Box>
+	</>
   );
 }
 

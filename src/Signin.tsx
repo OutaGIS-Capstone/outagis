@@ -12,10 +12,12 @@ function Signin() {
   const { authStatus } = useAuthenticator(context => [context.authStatus]);
 
   return (
-    <>
-      {authStatus === 'configuring' && 'Loading...'}
-      {authStatus !== 'authenticated' ? <Authenticator /> : <Home />}
-    </>
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+	  <Box sx={{ flexGrow: 1, overflow: "hidden", position: "relative", mt: 3, marginTop: "5em"}}>
+	    {authStatus === 'configuring' && 'Loading...'}
+	    {authStatus !== 'authenticated' ? <Authenticator /> : <Home />}
+	  </Box>
+    </Box>
   );
 }
 

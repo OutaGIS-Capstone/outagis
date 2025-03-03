@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Amplify } from 'aws-amplify';
 import { getCurrentUser, signOut } from 'aws-amplify/auth';
-import { Button, TextField, Container, Typography, Paper, Grid, Snackbar } from '@mui/material';
+import { Alert, Button, TextField, Container, Typography, Paper, Grid, Snackbar } from '@mui/material';
 import '@aws-amplify/ui-react/styles.css';
 import outputs from '../amplify_outputs.json';
 
@@ -17,6 +17,7 @@ function Account() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -42,8 +43,13 @@ function Account() {
   };
 
   const signout_redirect = () => {
-	  signOut();
-	  navigate("/");
+    signOut();
+    setOpenSnackbar(true);
+
+    // Delay navigation slightly to allow Snackbar to be seen
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
   };
 
   // const updateUserInfo = async () => {
@@ -89,6 +95,11 @@ function Account() {
       </Container>
       <Snackbar open={success} autoHideDuration={3000} onClose={() => setSuccess(false)} message="Account info updated successfully!" anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} />
       <Snackbar open={!!error} autoHideDuration={3000} onClose={() => setError('')} message={error} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} />
+      <Snackbar open={openSnackbar} autoHideDuration={20000} onClose={() => setOpenSnackbar(false)}>
+        <Alert severity="success" sx={{ width: "100%" }}>
+          You have been signed out successfully!
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
