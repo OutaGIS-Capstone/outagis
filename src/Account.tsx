@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Amplify } from 'aws-amplify';
-import { getCurrentUser, signOut } from 'aws-amplify/auth';
+import {
+	getCurrentUser,
+	updatePassword,
+	signOut,
+	updateUserAttributes,
+} from 'aws-amplify/auth';
 import { Alert, Button, TextField, Container, Typography, Paper, Grid, Snackbar } from '@mui/material';
 import '@aws-amplify/ui-react/styles.css';
 import outputs from '../amplify_outputs.json';
@@ -11,8 +16,8 @@ Amplify.configure(outputs);
 function Account() {
   const [userInfo, setUserInfo] = useState({
     email: '',
-    name: '',
     newPassword: '',
+    oldPassword: '',
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -25,7 +30,7 @@ function Account() {
         const user = await getCurrentUser();
         setUserInfo({
           email: user.signInDetails?.loginId || '',
-          name: user.signInDetails?.loginId || '',
+          oldPassword: '',
           newPassword: '',
         });
       } catch (err) {
@@ -52,22 +57,26 @@ function Account() {
     }, 2000);
   };
 
-  // const updateUserInfo = async () => {
-  //   try {
-  //     const user = await getCurrentUser();
-  //     await updateUserAttributes(user, {
-  //       email: userInfo.email,
-  //       name: userInfo.name,
-  //     });
-  //     if (userInfo.newPassword) {
-  //       await resetPassword({ username: userInfo.email });
-  //     }
-  //     setSuccess(true);
-  //   } catch (err) {
-  //     console.error("Error updating user info", err);
-  //     setError('Failed to update user information.');
-  //   }
-  // };
+  const updateUserInfo = async () => {
+    try {
+      await updateUserAttributes({
+	    userAttributes: {
+          email: userInfo.email
+		},
+      });
+	  const newpass = userInfo.newPassword;
+	  console.log(newpass);
+	  const oldpass = userInfo.oldPassword;
+	  console.log(oldpass);
+      if (newpass && oldpass) {
+        await updatePassword({ oldpass, newpass });
+      }
+      setSuccess(true);
+    } catch (err) {
+      console.error("Error updating user info", err);
+      setError('Failed to update user information.');
+    }
+  };
 
   return (
     <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -78,10 +87,13 @@ function Account() {
               <TextField label="Email" variant="outlined" fullWidth name="email" value={userInfo.email} onChange={handleChange} margin="normal" />
             </Grid>
             <Grid item xs={12}>
+              <TextField label="Old Password" variant="outlined" fullWidth name="oldPassword" type="password" value={userInfo.oldPassword} onChange={handleChange} margin="normal" />
+            </Grid>
+            <Grid item xs={12}>
               <TextField label="New Password" variant="outlined" fullWidth name="newPassword" type="password" value={userInfo.newPassword} onChange={handleChange} margin="normal" />
             </Grid>
             <Grid item>
-              <Button variant="contained" color="primary" fullWidth sx={{ marginTop: 2 }}>
+              <Button onClick={() => updateUserInfo()} variant="contained" color="primary" fullWidth sx={{ marginTop: 2 }}>
                 Save Changes
               </Button>
             </Grid>
