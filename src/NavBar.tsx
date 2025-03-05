@@ -100,11 +100,11 @@ function NavBar() {
           </Menu>
 
           <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}>
-            <img src="/src/assets/bch-full.png" style={{ height: "4em", width: "11em" }} alt="logo" />
+            <img src="/assets/bch-full.png" style={{ height: "4em", width: "11em" }} alt="logo" />
           </Box>
 
           <Box sx={{ display: { xs: "flex", md: "none" }, justifyContent: "center", flexGrow: 2 }}>
-            <img src="/src/assets/bch-full.png" style={{ height: "4em", width: "11em" }} alt="logo" />
+            <img src="/assets/bch-full.png" style={{ height: "4em", width: "11em" }} alt="logo" />
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
