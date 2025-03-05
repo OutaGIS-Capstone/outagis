@@ -38,28 +38,28 @@ const RegionDetails: React.FC = () => {
         <Table style={{width: '1px', whiteSpace: 'nowrap'}}>
           <TableHead>
             <TableRow>
-              <TableCell><strong>Municipality</strong></TableCell>
-              <TableCell><strong>Off Since</strong></TableCell>
-              <TableCell><strong>Status</strong></TableCell>
-              <TableCell><strong>Area</strong></TableCell>
-              <TableCell><strong>Affected</strong></TableCell>
-              <TableCell><strong>Cause</strong></TableCell>
-              <TableCell><strong>Updated</strong></TableCell>
+              <TableCell align="center"><strong>Municipality</strong></TableCell>
+              <TableCell align="center"><strong>Off Since</strong></TableCell>
+              <TableCell align="center"><strong>Status</strong></TableCell>
+              <TableCell align="center"><strong>Area</strong></TableCell>
+              <TableCell align="center"><strong>Affected</strong></TableCell>
+              <TableCell align="center"><strong>Cause</strong></TableCell>
+              <TableCell align="center"><strong>Updated</strong></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredOutages.map((outage, index) => (
               <TableRow key={index}>
-                <TableCell>{outage.municipality}</TableCell>
-                <TableCell>{outage.offSince}</TableCell>
-                <TableCell>{outage.status}</TableCell>
-                <TableCell>
+                <TableCell align="center">{outage.municipality}</TableCell>
+                <TableCell align="center">{outage.offSince}</TableCell>
+                <TableCell align="center">{outage.status}</TableCell>
+                <TableCell align="center">
                   {outage.area} <br />
                   <Link href="#">View on map</Link>
                 </TableCell>
-                <TableCell>{outage.affected}</TableCell>
-                <TableCell>{outage.cause}</TableCell>
-                <TableCell>{outage.updated}</TableCell>
+                <TableCell align="center">{outage.affected}</TableCell>
+                <TableCell align="center">{outage.cause}</TableCell>
+                <TableCell align="center">{outage.updated}</TableCell>
               </TableRow>
             ))}
           </TableBody>
