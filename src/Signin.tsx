@@ -3,55 +3,20 @@ import { Amplify } from 'aws-amplify';
 import outputs from '../amplify_outputs.json';
 import '@aws-amplify/ui-react/styles.css';
 import { Box, Button, Paper, Typography } from '@mui/material';
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import Home from "./Home.tsx";
 
 Amplify.configure(outputs);
 
 function Signin() {
+  const { authStatus } = useAuthenticator(context => [context.authStatus]);
+
   return (
-    <Box 
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        padding: 2,
-      }}
-    >
-      <Paper
-        sx={{
-          padding: 4,
-          borderRadius: 2,
-          maxWidth: 400,
-          width: '100%',
-          boxShadow: 3,
-          backgroundColor: '#fff',
-        }}
-      >
-        <Authenticator>
-          {({ signOut, user }) => (
-            <main>
-              <Box sx={{ textAlign: 'center', marginBottom: 2 }}>
-                <Typography variant="h4" color="primary">
-                  Welcome Back!
-                </Typography>
-                <Typography variant="h6" color="textSecondary" sx={{ marginTop: 1 }}>
-                  Hello {user?.userId}, you're logged in!
-                </Typography>
-              </Box>
-              <Box sx={{ textAlign: 'center' }}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={signOut}
-                  sx={{ width: '100%', padding: 1.5 }}
-                >
-                  Sign Out
-                </Button>
-              </Box>
-            </main>
-          )}
-        </Authenticator>
-      </Paper>
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+	  <Box sx={{ flexGrow: 1, overflow: "hidden", position: "relative", mt: 3, marginTop: "5em"}}>
+	    {authStatus === 'configuring' && 'Loading...'}
+	    {authStatus !== 'authenticated' ? <Authenticator /> : <Home />}
+	  </Box>
     </Box>
   );
 }

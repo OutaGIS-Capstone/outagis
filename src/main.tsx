@@ -13,8 +13,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AdminProvider>
       <Authenticator.Provider>
-      <App />
-    </Authenticator.Provider>
+        <App />
+      </Authenticator.Provider>
     </AdminProvider>
   </React.StrictMode>
 );

@@ -23,14 +23,16 @@ const OutageList: React.FC = () => {
 
       <Typography variant="body1" gutterBottom>
         Lost power? Check the outage map to see if we’re aware of the outage. If your outage isn’t shown, call{" "}
-        <strong>1 800 BCHYDRO</strong> (1 800 224 9376) or *HYDRO (*49376) on your mobile or log in to{" "}
-        <a href="#">report it online</a>.
+        <strong>1 800 XXX XXXX</strong> on your mobile or log in to
+        <Button variant="text"
+		  sx={{
+			textDecorationLine: "underline",
+			textTransform: "none"
+		  }} onClick={() => navigate("/report-outage")}>
+		  report it online
+		</Button>.
       </Typography>
       
-      <Typography variant="body2">
-        See our <a href="#">outage status definition</a> list to learn what the status of your outage means.
-      </Typography>
-
       <Alert severity="error" sx={{ my: 2 }}>
         <Typography variant="h6">⚠️ Regional alert</Typography>
         <Typography>
@@ -44,7 +46,7 @@ const OutageList: React.FC = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell><strong>Region</strong></TableCell>
+              <TableCell align="center"><strong>Region</strong></TableCell>
               <TableCell align="center"><strong>Outages</strong></TableCell>
               <TableCell align="center"><strong>Customers Affected</strong></TableCell>
             </TableRow>
@@ -52,7 +54,7 @@ const OutageList: React.FC = () => {
           <TableBody>
             {outages.map((row, index) => (
               <TableRow key={index} onClick={() => navigate(`/region/${encodeURIComponent(row.region)}`)} sx={{ cursor: "pointer", "&:hover": { backgroundColor: "#f5f5f5" } }}>
-                <TableCell>
+                <TableCell align="center">
                   <Link component="button" underline="hover">
                     {row.region}
                   </Link>
