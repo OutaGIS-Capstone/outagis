@@ -39,7 +39,7 @@ function NavBar() {
   const { isAdmin, toggleAdmin } = useAdmin();
 
   const settings = user
-    ? [{ name: "Account", path: "/account" }, { name: "Sign Out" }]
+    ? [{ name: "Account", path: "/account" }, { name: "Sign Out", path: "/"}]
     : [{ name: "Sign In", path: "/signin" }];
 
     const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -59,6 +59,10 @@ function NavBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleSignInClick = (path: string) => {
+    setActivePage(path);
   };
 
   const handlePageClick = (path: string) => {
@@ -121,6 +125,31 @@ function NavBar() {
                 ))}
               </List>
               <Divider />
+              <List>
+                {settings.map((setting) => (
+                  <ListItem
+                    key={setting.name}
+                    component={Link}
+                    to={setting.path}
+                    onClick={() => {
+                      handleCloseUserMenu();
+                      if (setting.name === "Sign Out") {
+                        signOut();
+                      }
+                      setActivePage(setting.path);
+                    }}
+                      sx={{
+                      color:  "#1f1e1e",
+                      backgroundColor: "inherit",
+                    }}
+                  >
+                    <ListItemText primary={setting.name} />
+                  </ListItem>
+                ))}
+              </List>
+              {user && (
+                <Divider/>
+              )}
               {user && (
                 <List>
                   <ListItem>
@@ -169,39 +198,65 @@ function NavBar() {
               <Switch checked={isAdmin} onChange={toggleAdmin} color="primary" />
             </Box>
           )}
+          {user && (
+            <Box sx={{display: { xs: "none", md: "inline"}, flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                keepMounted
+                transformOrigin={{ vertical: "top", horizontal: "right" }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem
+                    key={setting.name}
+                    onClick={() => {
+                      handleCloseUserMenu();
+                      if (setting.name === "Sign Out") {
+                        signOut();
+                      }
+                      setActivePage(setting.path);
+                    }}
+                    {...(setting.name !== "Sign Out" ? { component: Link, to: setting.path } : {})}
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{ vertical: "top", horizontal: "right" }}
-              keepMounted
-              transformOrigin={{ vertical: "top", horizontal: "right" }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
+                  >
+                    <Typography sx={{ textAlign: "center" }}>{setting.name}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          )}
+          {!user && (
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "flex-end"}}>
               {settings.map((setting) => (
-                <MenuItem
+                <Button
                   key={setting.name}
+                  component={Link}
+                  to={setting.path}
                   onClick={() => {
-                    handleCloseUserMenu();
-                    if (setting.name === "Sign Out") {
-                      signOut();
-                    }
+                    handleSignInClick(setting.path);
+                    setActivePage(setting.path);
                   }}
-                  {...(setting.name !== "Sign Out" ? { component: Link, to: setting.path } : {})}
+                  sx={{
+                    my: 2,
+                    color:  "#1f1e1e",
+                    display: "block",
+                  }}
                 >
-                  <Typography sx={{ textAlign: "center" }}>{setting.name}</Typography>
-                </MenuItem>
+                  {setting.name}
+                </Button>
               ))}
-            </Menu>
-          </Box>
+            </Box>
+          )}
+
         </Toolbar>
       </Container>
     </AppBar>
