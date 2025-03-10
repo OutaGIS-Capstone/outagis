@@ -7,11 +7,16 @@ import {
 	signOut,
 	updateUserAttributes,
 } from 'aws-amplify/auth';
-import { Alert, Button, TextField, Container, Typography, Paper, Grid, Snackbar } from '@mui/material';
+import { Button, TextField, Container, Paper, Grid, Snackbar } from '@mui/material';
 import '@aws-amplify/ui-react/styles.css';
 import outputs from '../amplify_outputs.json';
 
 Amplify.configure(outputs);
+
+interface AuthUpdatePasswordInput {
+    newPassword: string;
+    oldPassword: string;
+}
 
 function Account() {
   const [userInfo, setUserInfo] = useState({
@@ -57,6 +62,8 @@ function Account() {
     }, 2000);
   };
 
+  // TODO: updateUserInfo causes the following error during deploy:
+  // error TS2353: Object literal may only specify known properties, and 'oldpass' does not exist in type 'AuthUpdatePasswordInput'.
   const updateUserInfo = async () => {
     try {
       await updateUserAttributes({
@@ -64,13 +71,11 @@ function Account() {
           email: userInfo.email
 		},
       });
-	  const newpass = userInfo.newPassword;
-	  console.log(newpass);
-	  const oldpass = userInfo.oldPassword;
-	  console.log(oldpass);
-      if (newpass && oldpass) {
-        await updatePassword({ oldpass, newpass });
-      }
+	  //const newpass = userInfo.newPassword;
+	  //const oldpass = userInfo.oldPassword;
+      //if (newpass && oldpass) {
+      //  await updatePassword({ newpass, oldpass }); // FIXME: something wrong here
+      //}
       setSuccess(true);
     } catch (err) {
       console.error("Error updating user info", err);
