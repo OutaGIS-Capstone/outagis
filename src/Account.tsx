@@ -7,7 +7,7 @@ import {
 	signOut,
 	updateUserAttributes,
 } from 'aws-amplify/auth';
-import { Button, TextField, Container, Paper, Grid, Snackbar } from '@mui/material';
+import { Alert, Button, TextField, Container, Paper, Grid, Snackbar } from '@mui/material';
 import '@aws-amplify/ui-react/styles.css';
 import outputs from '../amplify_outputs.json';
 
