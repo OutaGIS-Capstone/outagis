@@ -18,7 +18,7 @@ const Report: React.FC = () => {
       </Box>
 
       <Box sx={{ display: "flex", justifyContent: "space-between", p: 3, alignItems: "center", backgroundColor: "#fff" }}>
-        <Typography sx={{ cursor: "pointer", textDecoration: "underline" }}>
+        <Typography onClick={() => navigate("/tutorial")} sx={{ cursor: "pointer", textDecoration: "underline" }}>
           Click here to watch a tutorial video
         </Typography>
         <Button variant="contained" onClick={() => navigate("/report-form")}>

@@ -62,7 +62,7 @@ const Form: React.FC = () => {
 
       <Snackbar open={openSnackbar} autoHideDuration={20000} onClose={() => setOpenSnackbar(false)}>
         <Alert severity="success" sx={{ width: "100%" }}>
-          Thank you for submitting! If you have any other issues, please contact 1 800 BCHYDRO (1 800 224 9376) or *HYDRO (*49376). 
+          Thank you for submitting! If you have any other issues, please contact 1 800 XXX XXXX. 
         </Alert>
       </Snackbar>
     </div>

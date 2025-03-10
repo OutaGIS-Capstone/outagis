@@ -7,6 +7,7 @@ import Form from "./Form.tsx";
 import Signin from "./Signin.tsx";
 import RegionDetails from "./RegionDetails.tsx";
 import Account from "./Account.tsx";
+import Tutorial from "./Tutorial.tsx";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path="/signin" element={<Signin />} /> 
       <Route path="/region/:regionName" element={<RegionDetails />} />
       <Route path="/account" element={<Account />} />            
+      <Route path="/tutorial" element={<Tutorial />} />            
       </Routes>
     </Router>
   );
