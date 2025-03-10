@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Amplify } from 'aws-amplify';
 import {
 	getCurrentUser,
-	updatePassword,
 	signOut,
 	updateUserAttributes,
 } from 'aws-amplify/auth';
@@ -12,11 +11,6 @@ import '@aws-amplify/ui-react/styles.css';
 import outputs from '../amplify_outputs.json';
 
 Amplify.configure(outputs);
-
-interface AuthUpdatePasswordInput {
-    newPassword: string;
-    oldPassword: string;
-}
 
 function Account() {
   const [userInfo, setUserInfo] = useState({
