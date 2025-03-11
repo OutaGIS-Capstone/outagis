@@ -12,24 +12,24 @@ const MyOutages: React.FC = () => {
       // Static data
       const staticOutages = [
         {
-          region: "Vancouver",
-          municipality: "Vancouver",
+          region: "Interior",
+          municipality: "Kamloops",
           offSince: "2025-03-10 08:00",
           status: "Outage",
-          area: "East Vancouver",
-          affected: "1000 homes",
+          area: "McGowan",
+          affected: "30",
           cause: "Storm damage",
           reportedAt: "2025-03-10 09:00",
         },
         {
-          region: "Burnaby",
-          municipality: "Burnaby",
-          offSince: "2025-03-10 10:00",
+          region: "Lower Mainland",
+          municipality: "Langley City",
+          offSince: "2025-02-10 10:00",
           status: "Restored",
-          area: "North Burnaby",
-          affected: "500 homes",
+          area: "Brookswood",
+          affected: "100",
           cause: "Equipment failure",
-          reportedAt: "2025-03-10 10:30",
+          reportedAt: "2025-02-10 10:30",
         },
       ];
 
