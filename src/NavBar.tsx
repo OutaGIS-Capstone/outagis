@@ -26,11 +26,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from '@mui/icons-material/Close';
 import { useAdmin } from "./AdminContext.tsx";
 
-const pages = [
-  { name: "Outage Map", path: "/" },
-  { name: "Outage List", path: "/outage-list" },
-  { name: "Report an Outage", path: "/report-outage" },
-];
 
 function NavBar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -39,6 +34,12 @@ function NavBar() {
 
   const { user, signOut } = useAuthenticator((context) => [context.user]);
   const { isAdmin, toggleAdmin } = useAdmin();
+  const pages = [
+  { name: "Outage Map", path: "/" },
+  { name: "Outage List", path: "/outage-list" },
+  { name: "Report an Outage", path: "/report-outage" },
+  ...(user ? [{ name: "My Outages", path: "/my-outages" }] : []),
+];
 
   const navigate = useNavigate();
   const [openSignoutSnackbar, setOpenSignoutSnackbar] = useState(false);

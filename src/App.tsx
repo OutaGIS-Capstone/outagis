@@ -8,6 +8,7 @@ import Signin from "./Signin.tsx";
 import RegionDetails from "./RegionDetails.tsx";
 import Account from "./Account.tsx";
 import Tutorial from "./Tutorial.tsx";
+import MyOutages from "./MyOutages.tsx";
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
       <Route path="/signin" element={<Signin />} /> 
       <Route path="/region/:regionName" element={<RegionDetails />} />
       <Route path="/account" element={<Account />} />            
-      <Route path="/tutorial" element={<Tutorial />} />            
+      <Route path="/tutorial" element={<Tutorial />} />   
+      <Route path="/my-outages" element={<MyOutages/>}/>         
       </Routes>
     </Router>
   );
