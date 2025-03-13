@@ -16,6 +16,7 @@ const OutageList: React.FC = () => {
   const navigate = useNavigate();
 
   return (
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
     <Box sx={{ maxWidth: 900, margin: "auto", padding: 3, marginTop: "5em"}}>
       <Typography variant="h4" gutterBottom>
         Report an Outage
@@ -76,6 +77,7 @@ const OutageList: React.FC = () => {
         <Button variant="outlined">🏠 Address</Button>
         <Button variant="outlined">📋 List</Button>
       </Box>
+    </Box>
     </Box>
   );
 };
