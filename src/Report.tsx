@@ -14,6 +14,7 @@ const Report: React.FC = () => {
           height="100%"
           style={{ border: "none" }}
           title="Outage Map"
+	  allow="geolocation"
         />
       </Box>
 

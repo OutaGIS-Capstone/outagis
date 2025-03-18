@@ -17,6 +17,7 @@ const Home = () => {
           height="100%"
           style={{ border: "none" }}
           title="ArcGIS Outages Map"
+	  allow="geolocation"
         />
       </Box>
     </Box>
