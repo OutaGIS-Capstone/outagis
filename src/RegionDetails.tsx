@@ -7,7 +7,7 @@ const RegionDetails: React.FC = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [outageData, setOutageData] = useState<any[]>([]); 
+  const [outageData, setOutageData] = useState<unknown[]>([]); 
   const [loading, setLoading] = useState(false); 
   const [error, setError] = useState<string | null>(null); 
 

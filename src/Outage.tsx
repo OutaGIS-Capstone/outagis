@@ -47,8 +47,6 @@ const Outage: React.FC = () => {
     RESTORED: 'restored'
   } as const;
   
-  type OutageStatus = typeof OUTAGE_STATUS[keyof typeof OUTAGE_STATUS];
-  
   const STATUS_OPTIONS = [
     { label: 'No Crew Assigned', value: OUTAGE_STATUS.NO_CREW_ASSIGNED },
     { label: 'Crew On Their Way', value: OUTAGE_STATUS.CREW_ON_THEIR_WAY },

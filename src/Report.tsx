@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Snackbar, Alert, Typography } from "@mui/material";
+import { Box, Button, Snackbar, Alert } from "@mui/material";
 import WebMap from "@arcgis/core/WebMap";
 import MapView from "@arcgis/core/views/MapView";
 import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";

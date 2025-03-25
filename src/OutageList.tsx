@@ -11,7 +11,7 @@ const OutageList: React.FC = () => {
   const [, setError] = useState<string | null>(null); 
   const [recentOutage, setRecentOutage] = useState<any>(null); 
 
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const handleChangePage = (newPage: number) => {
     setPage(newPage);
   };
 
