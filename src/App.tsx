@@ -9,6 +9,7 @@ import RegionDetails from "./RegionDetails.tsx";
 import Account from "./Account.tsx";
 import Tutorial from "./Tutorial.tsx";
 import MyOutages from "./MyOutages.tsx";
+import Outage from "./Outage.tsx";
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
       <Route path="/region/:regionName" element={<RegionDetails />} />
       <Route path="/account" element={<Account />} />            
       <Route path="/tutorial" element={<Tutorial />} />   
-      <Route path="/my-outages" element={<MyOutages/>}/>         
+      <Route path="/my-outages" element={<MyOutages/>}/>   
+      <Route path="/outage/:outageId" element={<Outage />} /> 
       </Routes>
     </Router>
   );

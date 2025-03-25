@@ -1,70 +1,108 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, MenuItem, Select, Button, Link } from "@mui/material";
-
-const outageDetails = [
-  { region: "Lower Mainland / Sunshine Coast", municipality: "Richmond", offSince: "Feb 5, 9:57 a.m.", status: "Crew on-site", area: "9000 block RYAN PL", affected: "< 5", cause: "Planned work", updated: "Feb 5, 2:54 p.m." },
-  { region: "Lower Mainland / Sunshine Coast", municipality: "Sechelt", offSince: "Feb 5, 12:39 p.m.", status: "Crew assigned", area: "12700 block LAGOON RD", affected: "17", cause: "Under investigation", updated: "Feb 5, 3:03 p.m." },
-  { region: "Lower Mainland / Sunshine Coast", municipality: "Sechelt", offSince: "Feb 5, 7:05 a.m.", status: "Crew assigned", area: "South of BRYAN RD", affected: "17", cause: "Snow storm", updated: "Feb 5, 3:03 p.m." },
-  { region: "Lower Mainland / Sunshine Coast", municipality: "Sechelt", offSince: "Feb 4, 12:59 a.m.", status: "Crew on-site", area: "11400-11500 block SUN CST HWY", affected: "12", cause: "Tree down", updated: "Feb 5, 3:03 p.m." },
-];
+import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Link, TablePagination } from "@mui/material";
 
 const RegionDetails: React.FC = () => {
   const { regionName } = useParams<{ regionName: string }>();
   const navigate = useNavigate();
-  const [selectedMunicipality, setSelectedMunicipality] = useState("All");
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [outageData, setOutageData] = useState<any[]>([]); // State for storing outage data
+  const [loading, setLoading] = useState(false); // Loading state
+  const [error, setError] = useState<string | null>(null); // Error state
 
-  const filteredOutages = outageDetails.filter(
-    (outage) => outage.region === regionName && (selectedMunicipality === "All" || outage.municipality === selectedMunicipality)
-  );
+  // Fetching outage data based on region
+  useEffect(() => {
+    setLoading(true);
+    fetch(`https://gqls5yelo8.execute-api.ca-central-1.amazonaws.com/default/outagis-retrieve_outages_by_region?region=${regionName}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setOutageData(data);  // Assuming the API returns an array of outage details
+        console.log(data);
+        const outageIds = data.map((outage: any) => outage._id);
+        localStorage.setItem("outageList", JSON.stringify(outageIds));
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError("Failed to load data");
+        setLoading(false);
+      });
+  }, [regionName]);
 
-  const municipalities = [...new Set(outageDetails.filter(o => o.region === regionName).map(o => o.municipality))];
+  // Handle pagination
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const handleViewOnMap = (outageId: string) => {
+    // Store the outage ID in localStorage
+    localStorage.setItem("selectedOutageId", outageId);
+    console.log(outageId);
+    // Navigate to the map view or the outage detail page
+    navigate(`/outage/${outageId}`);
+  };
 
   return (
     <Box sx={{ maxWidth: 900, margin: "auto", padding: 3 }}>
       <Button onClick={() => navigate(-1)} sx={{ mb: 2 }}>⬅ Back</Button>
       <Typography variant="h5" gutterBottom>{regionName}</Typography>
-      <Typography variant="body1">Total customers affected: {filteredOutages.reduce((sum, o) => sum + (isNaN(Number(o.affected)) ? 0 : Number(o.affected)), 0)}</Typography>
-
-      <Box sx={{ mt: 2, mb: 2 }}>
-        <Typography variant="body2" display="inline" sx={{ mr: 1 }}>Municipality:</Typography>
-        <Select value={selectedMunicipality} onChange={(e) => setSelectedMunicipality(e.target.value)}>
-          <MenuItem value="All">All</MenuItem>
-          {municipalities.map((m, i) => <MenuItem key={i} value={m}>{m}</MenuItem>)}
-        </Select>
-      </Box>
+      
+      <Typography variant="body1">
+        Total customers affected: {outageData.reduce((sum, o) => sum + (isNaN(Number(o.population_affected)) ? 0 : Number(o.population_affected)), 0)}
+      </Typography>
 
       <TableContainer component={Paper}>
-        <Table style={{width: '1px', whiteSpace: 'nowrap'}}>
+        <Table sx={{ minWidth: 650 }}>
           <TableHead>
             <TableRow>
-              <TableCell align="center"><strong>Municipality</strong></TableCell>
-              <TableCell align="center"><strong>Off Since</strong></TableCell>
-              <TableCell align="center"><strong>Status</strong></TableCell>
-              <TableCell align="center"><strong>Area</strong></TableCell>
-              <TableCell align="center"><strong>Affected</strong></TableCell>
+              <TableCell align="center"><strong>Location</strong></TableCell>
+              <TableCell align="center"><strong>Description</strong></TableCell>
               <TableCell align="center"><strong>Cause</strong></TableCell>
-              <TableCell align="center"><strong>Updated</strong></TableCell>
+              <TableCell align="center"><strong>Status</strong></TableCell>
+              <TableCell align="center"><strong>Affected</strong></TableCell>
+              <TableCell align="center"><strong>Estimated Time of Arrival</strong></TableCell>
+              <TableCell align="center"><strong>Last Updated</strong></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredOutages.map((outage, index) => (
-              <TableRow key={index}>
-                <TableCell align="center">{outage.municipality}</TableCell>
-                <TableCell align="center">{outage.offSince}</TableCell>
-                <TableCell align="center">{outage.status}</TableCell>
-                <TableCell align="center">
-                  {outage.area} <br />
-                  <Link href="#">View on map</Link>
+            {outageData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((outage, index) => (
+              <TableRow key={outage._id}>
+                <TableCell align="center" sx={{ wordWrap: 'break-word', maxWidth: '150px' }}>
+                  {outage.geojson && outage.geojson.geometry && outage.geojson.type == "Point" ? `${outage.geojson.geometry.coordinates[0]}, ${outage.geojson.geometry.coordinates[1]}` : "Polygon"} 
+                  <br />
+                  <Link href="#" onClick={() => handleViewOnMap(outage._id)}>View on map</Link>
                 </TableCell>
-                <TableCell align="center">{outage.affected}</TableCell>
-                <TableCell align="center">{outage.cause}</TableCell>
-                <TableCell align="center">{outage.updated}</TableCell>
+                <TableCell align="center" sx={{ wordWrap: 'break-word', maxWidth: '200px' }}>
+                  {outage.description}
+                </TableCell>
+                <TableCell align="center" sx={{ wordWrap: 'break-word', maxWidth: '150px' }}>
+                  {outage.cause}
+                </TableCell>
+                <TableCell align="center">{outage.status}</TableCell>
+                <TableCell align="center">{outage.population_affected}</TableCell>
+                <TableCell align="center">{new Date(outage.eta).toLocaleString()}</TableCell>
+                <TableCell align="center">{new Date(outage.timestamp).toLocaleString()}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Pagination */}
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={outageData.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </Box>
   );
 };

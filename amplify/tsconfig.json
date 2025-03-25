@@ -11,6 +11,9 @@
     "paths": {
       "$amplify/*": [
         "../.amplify/generated/*"
+      ],
+      "@arcgis/core/*": [
+        "node_modules/@arcgis/core/*"
       ]
     }
   }
