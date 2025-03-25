@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "es2022",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": false,
+    "skipLibCheck": true,
+    "noEmitOnError": false,
+    "baseUrl": ".",
+    "paths": {
+      "$amplify/*": [
+        "../.amplify/generated/*"
+      ],
+      "@arcgis/core/*": [
+        "node_modules/@arcgis/core/*"
+      ]
+    }
+  }
+}

@@ -7,8 +7,8 @@ const OutageList: React.FC = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [outagesData, setOutagesData] = useState<any[]>([]); 
-  const [loading, setLoading] = useState(false); 
-  const [error, setError] = useState<string | null>(null); 
+  const [, setLoading] = useState(false); 
+  const [, setError] = useState<string | null>(null); 
   const [recentOutage, setRecentOutage] = useState<any>(null); 
 
   const handleChangePage = (event: unknown, newPage: number) => {

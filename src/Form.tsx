@@ -19,22 +19,21 @@ const Form: React.FC = () => {
       cause: "",
       phone: "",
       email: "",
+      name: "",
     },
   });
 
   const navigate = useNavigate();
   const location = useLocation();
-  const [outageData, setOutageData] = useState<any>(location.state?.outageData);
+  const [outageData, ] = useState<any>(location.state?.outageData);
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   useEffect(() => {
-    // Log the outage data from the previous page
     console.log("Outage data received:", outageData);
   }, [outageData]);
 
   const onSubmit = async (data: any) => {
 
-    // Prepare data for the API call
     let locationData: any;
     console.log(outageData[0]?.type);
 
