@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Snackbar, Alert, Typography, TextField, FormControl, InputLabel, MenuItem, Select,} from "@mui/material";
+import { Box, Button, Snackbar, Alert, Typography, TextField, FormControl, InputLabel, MenuItem, Select, CircularProgress,
+  SelectChangeEvent} from "@mui/material";
+import { CheckCircleOutline } from "@mui/icons-material";
 import { useParams } from "react-router-dom";
 import { useAdmin } from "./AdminContext.tsx";
 import "@arcgis/core/assets/esri/themes/light/main.css";
@@ -21,6 +23,7 @@ const Outage: React.FC = () => {
   const { outageId } = useParams<{ outageId: string }>();
   const storedOutageId = localStorage.getItem("selectedOutageId") || outageId;
   const [outageData, setOutageData] = useState<any>(null);
+  const [formData, setFormData] = useState<any>(null);
   const [view, setView] = useState<MapView | null>(null);
   const [graphicsLayer, setGraphicsLayer] = useState<GraphicsLayer | null>(null);
   const [graphics, setGraphics] = useState<Graphic[]>([]);
@@ -28,6 +31,8 @@ const Outage: React.FC = () => {
   const [sketchViewModel, setSketchViewModel] = useState<SketchViewModel | null>(null);
   const [editingEnabled, setEditingEnabled] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const OUTAGE_STATUS = {
     NO_CREW_ASSIGNED: 'no crew assigned',
     CREW_ON_THEIR_WAY: 'crew on their way',
@@ -47,7 +52,6 @@ const Outage: React.FC = () => {
   useEffect(() => {
     if (!storedOutageId) return;
 
-    // Fetch outage details from API
     const fetchOutage = async () => {
       try {
         const response = await fetch(
@@ -55,8 +59,8 @@ const Outage: React.FC = () => {
         );
         if (!response.ok) throw new Error("Failed to fetch outage data");
         const data = await response.json();
-        console.log(data);
         setOutageData(data);
+        setFormData(data);
       } catch (error) {
         console.error("Error fetching outage:", error);
       }
@@ -114,7 +118,7 @@ const Outage: React.FC = () => {
     }
 
     return () => mapView.destroy();
-  }, [outageData]);
+  }, [outageData?.geojson]); // Only depend on geojson property
 
   const enableEditing = () => {
     if (isAdmin && view && graphicsLayer && graphics.length > 0) {
@@ -123,13 +127,12 @@ const Outage: React.FC = () => {
         layer: graphicsLayer,
         updateOnGraphicClick: false,
         defaultUpdateOptions: {
-          toggleToolOnClick: true // only reshape operation will be enabled
+          toggleToolOnClick: true
         }
       });
 
       setSketchViewModel(sketchVM);
 
-      // Listen to sketchViewModel's events
       sketchVM.on("update", (event) => {
         if (event.state === "complete") {
           const updatedGraphic = event.graphics[0];
@@ -137,7 +140,6 @@ const Outage: React.FC = () => {
         }
       });
 
-      // Enable clicking on the graphic to start editing
       view.on("click", (event) => {
         if (sketchVM.state === "active") return;
 
@@ -155,19 +157,18 @@ const Outage: React.FC = () => {
   };
 
   const saveOutage = async () => {
-    if (!graphics.length || !outageData || !view) {
+    if (!graphics.length || !formData || !view) {
       console.error("Missing required data");
       return;
     }
   
+    setIsSaving(true);
+    setError(null);
+  
     try {
-      // Import the webMercatorUtils at the top of your file:
-      // import * as webMercatorUtils from "@arcgis/core/geometry/support/webMercatorUtils";
-      
       const geometry = graphics[0].geometry.clone();
       let coordinates;
   
-      // Convert Web Mercator to Geographic (WGS84) if needed
       if (view.spatialReference.isWebMercator) {
         if (geometry.type === "point") {
           const point = webMercatorUtils.webMercatorToGeographic(geometry) as Point;
@@ -177,7 +178,6 @@ const Outage: React.FC = () => {
           coordinates = polygon.rings;
         }
       } else {
-        // If already in geographic coordinates
         if (geometry.type === "point") {
           coordinates = [geometry.longitude, geometry.latitude];
         } else if (geometry.type === "polygon") {
@@ -185,26 +185,19 @@ const Outage: React.FC = () => {
         }
       }
   
-      // Prepare the outage update payload
       const outageUpdate = {
-        description: outageData.description,
-       
-          type: "Feature",
-          location: {
-            type: geometry.type,
-            coordinates: coordinates
-          },
-          
-          population_affected: outageData.population_affected,
-          cause: outageData.cause,
-          eta: outageData.eta,
-          status: outageData.status.toLowerCase(),
-          
-        
+        description: formData.description,
+        type: "Feature",
+        location: {
+          type: geometry.type,
+          coordinates: coordinates
+        },
+        population_affected: formData.population_affected,
+        cause: formData.cause,
+        eta: formData.eta,
+        status: formData.status.toLowerCase(),
         outage_id: outageId
       };
-  
-      console.log("Submitting:", outageUpdate);
   
       const response = await fetch(
         "https://mr7z4ab9da.execute-api.ca-central-1.amazonaws.com/default/outagis-modify_outage",
@@ -221,109 +214,290 @@ const Outage: React.FC = () => {
   
       const result = await response.json();
       console.log("Success:", result);
+      setOutageData(formData);
       setShowSnackbar(true);
       setEditingEnabled(false);
       
       if (sketchViewModel) {
         sketchViewModel.cancel();
       }
-  
     } catch (error) {
       console.error("Error updating outage:", error);
       setError("Failed to save outage. Please try again.");
+    } finally {
+      setIsSaving(false);
     }
   };
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%", height: "100vh", marginTop: "90px" }}>
-      <Box sx={{ width: "40%", padding: "20px" }}>
-        <Typography variant="h4" align="center" sx={{ marginBottom: "20px" }}>
+    <Box sx={{
+      display: "flex",
+      height: "calc(100vh - 90px)",
+      marginTop: "90px",
+      backgroundColor: "#f5f5f7"
+    }}>
+      <Box sx={{
+        width: "40%",
+        padding: "32px",
+        display: "flex",
+        flexDirection: "column",
+        background: "white",
+        borderRadius: "12px",
+        boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
+        margin: "16px",
+        overflowY: "auto"
+      }}>
+        <Typography variant="h4" sx={{
+          marginBottom: "24px",
+          fontWeight: 500,
+          color: "#1d1d1f",
+          fontSize: "28px",
+          letterSpacing: "-0.5px"
+        }}>
           Outage Details
         </Typography>
-        {outageData && (
-          <Box sx={{ textAlign: "center", marginBottom: "20px" }}>
+  
+        {formData && (
+          <Box sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px"
+          }}>
             <TextField
-              fullWidth
+              multiline
+              minRows={3}
+              maxRows={8}
               label="Description"
-              value={outageData.description}
-              onChange={(e) => setOutageData({ ...outageData, description: e.target.value })}
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               disabled={!isAdmin}
-              sx={{ marginBottom: "10px" }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: "8px",
+                  '& fieldset': {
+                    borderColor: "#d2d2d7",
+                  },
+                  '&:hover fieldset': {
+                    borderColor: "#86868b",
+                  },
+                },
+                '& .MuiInputLabel-root': {
+                  color: "#86868b",
+                }
+              }}
             />
-            <FormControl fullWidth sx={{ marginBottom: '10px' }}>
-              <InputLabel>Status</InputLabel>
+  
+            <FormControl fullWidth>
+              <InputLabel sx={{ color: "#86868b" }}>Status</InputLabel>
               <Select
-                value={outageData.status.toLowerCase()} // Ensure comparison works with lowercase
-                onChange={(e) => setOutageData({ ...outageData, status: e.target.value })}
+                value={formData.status.toLowerCase()}
+                onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                 label="Status"
                 disabled={!isAdmin}
+                sx={{
+                  borderRadius: "8px",
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: "#d2d2d7",
+                  },
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: "#86868b",
+                  },
+                }}
               >
                 {STATUS_OPTIONS.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
+                  <MenuItem 
+                    key={option.value} 
+                    value={option.value}
+                    sx={{
+                      '&.Mui-selected': {
+                        backgroundColor: "#f5f5f7",
+                      },
+                      '&:hover': {
+                        backgroundColor: "#f5f5f7",
+                      }
+                    }}
+                  >
                     {option.label}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
-
+  
             <TextField
-              fullWidth
               label="Cause"
-              value={outageData.cause}
-              onChange={(e) => setOutageData({ ...outageData, cause: e.target.value })}
+              value={formData.cause}
+              onChange={(e) => setFormData({ ...formData, cause: e.target.value })}
               disabled={!isAdmin}
-              sx={{ marginBottom: "10px" }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: "8px",
+                  '& fieldset': {
+                    borderColor: "#d2d2d7",
+                  },
+                  '&:hover fieldset': {
+                    borderColor: "#86868b",
+                  },
+                }
+              }}
             />
+  
             <TextField
-              fullWidth
               label="Population Affected"
-              value={outageData.population_affected}
-              onChange={(e) => setOutageData({ ...outageData, population_affected: e.target.value })}
+              value={formData.population_affected}
+              onChange={(e) => setFormData({ ...formData, population_affected: e.target.value })}
               disabled={!isAdmin}
-              sx={{ marginBottom: "10px" }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: "8px",
+                  '& fieldset': {
+                    borderColor: "#d2d2d7",
+                  },
+                  '&:hover fieldset': {
+                    borderColor: "#86868b",
+                  },
+                }
+              }}
             />
+  
             <TextField
-              fullWidth
-              label="ETA"
-              value={outageData.eta}
-              onChange={(e) => setOutageData({ ...outageData, eta: e.target.value })}
+              label="Estimated Restoration Time"
+              value={formData.eta}
+              onChange={(e) => setFormData({ ...formData, eta: e.target.value })}
               disabled={!isAdmin}
-              sx={{ marginBottom: "10px" }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: "8px",
+                  '& fieldset': {
+                    borderColor: "#d2d2d7",
+                  },
+                  '&:hover fieldset': {
+                    borderColor: "#86868b",
+                  },
+                }
+              }}
             />
           </Box>
         )}
+  
         {isAdmin && (
-          <>
+          <Box sx={{
+            display: "flex",
+            gap: "16px",
+            marginTop: "24px"
+          }}>
             <Button 
               variant="contained" 
-              color={editingEnabled ? "secondary" : "primary"} 
               onClick={enableEditing} 
-              sx={{ marginBottom: "20px" }}
+              sx={{
+                flex: 1,
+                borderRadius: "8px",
+                padding: "10px 16px",
+                textTransform: "none",
+                fontSize: "15px",
+                fontWeight: 500,
+                backgroundColor: editingEnabled ? "#ff453a" : "#0071e3",
+                '&:hover': {
+                  backgroundColor: editingEnabled ? "#d70015" : "#0062ba",
+                }
+              }}
             >
-              {editingEnabled ? "Editing Enabled" : "Enable Editing"}
+              {editingEnabled ? "Stop Editing" : "Edit Boundaries"}
             </Button>
             <Button 
               onClick={saveOutage} 
               variant="contained" 
-              color="secondary" 
-              sx={{ marginBottom: "20px" }}
+              sx={{
+                flex: 1,
+                borderRadius: "8px",
+                padding: "10px 16px",
+                textTransform: "none",
+                fontSize: "15px",
+                fontWeight: 500,
+                backgroundColor: "#34c759",
+                '&:hover': {
+                  backgroundColor: "#248a3d",
+                },
+                '&:disabled': {
+                  backgroundColor: "#e5e5ea",
+                  color: "#aeaeb2"
+                }
+              }}
               disabled={isSaving}
             >
-              {isSaving ? "Saving..." : "Save Changes"}
+              {isSaving ? (
+                <>
+                  <CircularProgress size={20} sx={{ color: "white", marginRight: "8px" }} />
+                  Saving...
+                </>
+              ) : "Save Changes"}
             </Button>
-          </>
+          </Box>
         )}
       </Box>
-
-      <div id="mapViewDiv" style={{ width: "60%", height: "100%" }}></div>
-
-      <Snackbar open={showSnackbar} autoHideDuration={3000} onClose={() => setShowSnackbar(false)}>
-        <Alert onClose={() => setShowSnackbar(false)} severity="success">
+  
+      <Box sx={{ 
+        width: "60%",
+        height: "100%",
+        position: "relative",
+        '&::before': {
+          content: '""',
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "1px",
+          background: "linear-gradient(to right, transparent, #d2d2d7, transparent)"
+        }
+      }}>
+        <div id="mapViewDiv" style={{ 
+          width: "100%", 
+          height: "100%",
+          borderRadius: "0 0 0 12px"
+        }}></div>
+      </Box>
+  
+      <Snackbar 
+        open={showSnackbar} 
+        autoHideDuration={3000} 
+        onClose={() => setShowSnackbar(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={() => setShowSnackbar(false)} 
+          severity="success"
+          sx={{
+            borderRadius: "8px",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+            backgroundColor: "#f5f5f7",
+            color: "#1d1d1f"
+          }}
+          iconMapping={{
+            success: <CheckCircleOutline sx={{ color: "#34c759" }} />
+          }}
+        >
           Outage updated successfully!
         </Alert>
       </Snackbar>
+
+      {error && (
+        <Snackbar
+          open={!!error}
+          autoHideDuration={6000}
+          onClose={() => setError(null)}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        >
+          <Alert
+            onClose={() => setError(null)}
+            severity="error"
+            sx={{ width: '100%' }}
+          >
+            {error}
+          </Alert>
+        </Snackbar>
+      )}
     </Box>
   );
 };
 
 export default Outage;
+
