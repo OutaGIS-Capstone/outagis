@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Snackbar, Alert, Typography, TextField, FormControl, InputLabel, MenuItem, Select, CircularProgress,
-  SelectChangeEvent} from "@mui/material";
-import { CheckCircleOutline } from "@mui/icons-material";
-import { useParams } from "react-router-dom";
+import { 
+  Box, Button, Snackbar, Alert, Typography, TextField, FormControl, 
+  InputLabel, MenuItem, Select, CircularProgress, Dialog, DialogActions, 
+  DialogContent, DialogContentText, DialogTitle, useMediaQuery, useTheme 
+} from "@mui/material";
+import { CheckCircleOutline, Delete } from "@mui/icons-material";
+import { useParams, useNavigate } from "react-router-dom";
 import { useAdmin } from "./AdminContext.tsx";
 import "@arcgis/core/assets/esri/themes/light/main.css";
 import WebMap from "@arcgis/core/WebMap";
@@ -11,14 +14,16 @@ import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
 import { Point, Polygon } from "@arcgis/core/geometry";
 import { SimpleFillSymbol, SimpleMarkerSymbol } from "@arcgis/core/symbols";
 import Graphic from "@arcgis/core/Graphic";
-import Sketch from "@arcgis/core/widgets/Sketch";
 import SketchViewModel from "@arcgis/core/widgets/Sketch/SketchViewModel";
 import esriConfig from "@arcgis/core/config";
-import * as webMercatorUtils from "@arcgis/core/geometry/support/webMercatorUtils"
+import * as webMercatorUtils from "@arcgis/core/geometry/support/webMercatorUtils";
 
 esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurDEIiAqgC6zGwmjRMGhSO75XQSaD5YVw_tZ9FZuP1tp0wYsJZ6FsQiRPg0jC84RuHYrU-vBZl9ZQIoKh-k6wPuKAUpBsmSYakTfeD2WE3sc6MLl0evhoM7_ZHUVQHuOMQWZYe6Z2s0TfglsWDpxJAtcwdt1krJJKXhK9HaQoL9aC8Y3230L4lmFJ8zH1Ye2g5z1cxw_OcVefB7_8SAbup3A.AT1_ujBXG8pX";
 
 const Outage: React.FC = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const navigate = useNavigate();
   const { isAdmin } = useAdmin();
   const { outageId } = useParams<{ outageId: string }>();
   const storedOutageId = localStorage.getItem("selectedOutageId") || outageId;
@@ -32,6 +37,8 @@ const Outage: React.FC = () => {
   const [editingEnabled, setEditingEnabled] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const OUTAGE_STATUS = {
     NO_CREW_ASSIGNED: 'no crew assigned',
@@ -73,7 +80,12 @@ const Outage: React.FC = () => {
     if (!outageData || !outageData.geojson) return;
 
     const webMap = new WebMap({ portalItem: { id: "65b663af59944a2dac3834f34d48b9c9" } });
-    const mapView = new MapView({ container: "mapViewDiv", map: webMap });
+    const mapView = new MapView({ 
+      container: "mapViewDiv", 
+      map: webMap,
+      padding: isMobile ? { top: 50 } : undefined
+    });
+    
     const layer = new GraphicsLayer();
     webMap.add(layer);
     setGraphicsLayer(layer);
@@ -118,7 +130,7 @@ const Outage: React.FC = () => {
     }
 
     return () => mapView.destroy();
-  }, [outageData?.geojson]); // Only depend on geojson property
+  }, [outageData?.geojson, isMobile]);
 
   const enableEditing = () => {
     if (isAdmin && view && graphicsLayer && graphics.length > 0) {
@@ -153,7 +165,7 @@ const Outage: React.FC = () => {
         });
       });
     }
-    setEditingEnabled(true);
+    setEditingEnabled(!editingEnabled);
   };
 
   const saveOutage = async () => {
@@ -229,29 +241,59 @@ const Outage: React.FC = () => {
     }
   };
 
+  const handleDeleteOutage = async () => {
+    setIsDeleting(true);
+    try {
+      const response = await fetch(
+        "https://wehat7vjif.execute-api.ca-central-1.amazonaws.com/default/outagis-delete_outage",
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ outage_id: outageId }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete outage");
+      }
+
+      localStorage.removeItem("selectedOutageId");
+      navigate("/");
+    } catch (error) {
+      console.error("Error deleting outage:", error);
+      setError("Failed to delete outage. Please try again.");
+    } finally {
+      setIsDeleting(false);
+      setDeleteConfirmOpen(false);
+    }
+  };
+
   return (
     <Box sx={{
       display: "flex",
-      height: "calc(100vh - 90px)",
-      marginTop: "90px",
+      flexDirection: isMobile ? "column" : "row",
+      height: isMobile ? "auto" : "calc(100vh - 90px)",
+      marginTop: isMobile ? "16px" : "90px",
       backgroundColor: "#f5f5f7"
     }}>
+      {/* Form Panel */}
       <Box sx={{
-        width: "40%",
-        padding: "32px",
+        width: isMobile ? "calc(100% - 32px)" : "40%",
+        padding: isMobile ? "16px" : "32px",
         display: "flex",
         flexDirection: "column",
         background: "white",
         borderRadius: "12px",
         boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
-        margin: "16px",
-        overflowY: "auto"
+        margin: isMobile ? "16px" : "16px 16px 16px 16px",
+        overflowY: "auto",
+        order: isMobile ? 2 : 1
       }}>
         <Typography variant="h4" sx={{
           marginBottom: "24px",
           fontWeight: 500,
           color: "#1d1d1f",
-          fontSize: "28px",
+          fontSize: isMobile ? "24px" : "28px",
           letterSpacing: "-0.5px"
         }}>
           Outage Details
@@ -382,6 +424,7 @@ const Outage: React.FC = () => {
         {isAdmin && (
           <Box sx={{
             display: "flex",
+            flexDirection: isMobile ? "column" : "row",
             gap: "16px",
             marginTop: "24px"
           }}>
@@ -431,14 +474,45 @@ const Outage: React.FC = () => {
                 </>
               ) : "Save Changes"}
             </Button>
+            <Button 
+              onClick={() => setDeleteConfirmOpen(true)} 
+              variant="contained" 
+              startIcon={<Delete />}
+              sx={{
+                flex: 1,
+                borderRadius: "8px",
+                padding: "10px 16px",
+                textTransform: "none",
+                fontSize: "15px",
+                fontWeight: 500,
+                backgroundColor: "#ff3b30",
+                '&:hover': {
+                  backgroundColor: "#d70015",
+                },
+                '&:disabled': {
+                  backgroundColor: "#e5e5ea",
+                  color: "#aeaeb2"
+                }
+              }}
+              disabled={isDeleting}
+            >
+              {isDeleting ? (
+                <>
+                  <CircularProgress size={20} sx={{ color: "white", marginRight: "8px" }} />
+                  Deleting...
+                </>
+              ) : "Delete Outage"}
+            </Button>
           </Box>
         )}
       </Box>
   
+      {/* Map Panel */}
       <Box sx={{ 
-        width: "60%",
-        height: "100%",
+        width: isMobile ? "100%" : "60%",
+        height: isMobile ? "400px" : "100%",
         position: "relative",
+        order: isMobile ? 1 : 2,
         '&::before': {
           content: '""',
           position: "absolute",
@@ -452,10 +526,11 @@ const Outage: React.FC = () => {
         <div id="mapViewDiv" style={{ 
           width: "100%", 
           height: "100%",
-          borderRadius: "0 0 0 12px"
+          borderRadius: isMobile ? "12px 12px 0 0" : "0 0 0 12px"
         }}></div>
       </Box>
   
+      {/* Success Notification */}
       <Snackbar 
         open={showSnackbar} 
         autoHideDuration={3000} 
@@ -479,6 +554,7 @@ const Outage: React.FC = () => {
         </Alert>
       </Snackbar>
 
+      {/* Error Notification */}
       {error && (
         <Snackbar
           open={!!error}
@@ -495,6 +571,37 @@ const Outage: React.FC = () => {
           </Alert>
         </Snackbar>
       )}
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog
+        open={deleteConfirmOpen}
+        onClose={() => setDeleteConfirmOpen(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Confirm Delete
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete this outage? This action cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteConfirmOpen(false)} color="primary">
+            Cancel
+          </Button>
+          <Button 
+            onClick={handleDeleteOutage} 
+            color="error" 
+            autoFocus
+            disabled={isDeleting}
+            startIcon={isDeleting ? <CircularProgress size={20} /> : null}
+          >
+            {isDeleting ? "Deleting..." : "Delete"}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

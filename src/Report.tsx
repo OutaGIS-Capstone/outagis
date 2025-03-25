@@ -49,6 +49,7 @@ const Report: React.FC = () => {
         if (event.state === "complete") {
           const graphic = event.graphic;
           let geoJson = {};
+          console.log(graphic);
       
           // Convert geometry to geographic coordinates (WGS84)
           const geoGeometry = graphic.geometry.clone();
@@ -63,6 +64,7 @@ const Report: React.FC = () => {
               coordinates: [geographicGeometry.longitude, geographicGeometry.latitude],
             };
           } else if (geographicGeometry.type === "polygon") {
+            console.log("here");
             geoJson = {
               type: "Polygon",
               coordinates: geographicGeometry.rings.map(ring => 
