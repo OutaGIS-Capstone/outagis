@@ -38,7 +38,7 @@ function NavBar() {
   { name: "Outage Map", path: "/" },
   { name: "Outage List", path: "/outage-list" },
   { name: "Report an Outage", path: "/report-outage" },
-  ...(user ? [{ name: "My Outages", path: "/my-outages" }] : []),
+  // ...(user ? [{ name: "My Outages", path: "/my-outages" }] : []),
 ];
 
   const navigate = useNavigate();

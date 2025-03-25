@@ -5,7 +5,6 @@ import WebMap from "@arcgis/core/WebMap";
 import MapView from "@arcgis/core/views/MapView";
 import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
 import Sketch from "@arcgis/core/widgets/Sketch";
-import Graphic from "@arcgis/core/Graphic";
 import esriConfig from "@arcgis/core/config";
 import * as webMercatorUtils from "@arcgis/core/geometry/support/webMercatorUtils";
 
