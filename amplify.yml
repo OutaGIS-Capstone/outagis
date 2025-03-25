@@ -9,7 +9,7 @@ frontend:
   phases:
     build:
       commands:
-        - SKIP_TYPECHECK=1 npm run build
+        - SKIP_TYPECHECK=1 NODE_OPTIONS="--max-old-space-size=4096" npm run build
   artifacts:
     baseDirectory: dist
     files:
