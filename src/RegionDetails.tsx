@@ -7,17 +7,16 @@ const RegionDetails: React.FC = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [outageData, setOutageData] = useState<any[]>([]); // State for storing outage data
-  const [loading, setLoading] = useState(false); // Loading state
-  const [error, setError] = useState<string | null>(null); // Error state
+  const [outageData, setOutageData] = useState<any[]>([]); 
+  const [loading, setLoading] = useState(false); 
+  const [error, setError] = useState<string | null>(null); 
 
-  // Fetching outage data based on region
   useEffect(() => {
     setLoading(true);
     fetch(`https://gqls5yelo8.execute-api.ca-central-1.amazonaws.com/default/outagis-retrieve_outages_by_region?region=${regionName}`)
       .then((response) => response.json())
       .then((data) => {
-        setOutageData(data);  // Assuming the API returns an array of outage details
+        setOutageData(data);  
         console.log(data);
         const outageIds = data.map((outage: any) => outage._id);
         localStorage.setItem("outageList", JSON.stringify(outageIds));
@@ -29,7 +28,6 @@ const RegionDetails: React.FC = () => {
       });
   }, [regionName]);
 
-  // Handle pagination
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -40,10 +38,8 @@ const RegionDetails: React.FC = () => {
   };
 
   const handleViewOnMap = (outageId: string) => {
-    // Store the outage ID in localStorage
     localStorage.setItem("selectedOutageId", outageId);
     console.log(outageId);
-    // Navigate to the map view or the outage detail page
     navigate(`/outage/${outageId}`);
   };
 
@@ -93,7 +89,6 @@ const RegionDetails: React.FC = () => {
         </Table>
       </TableContainer>
 
-      {/* Pagination */}
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"

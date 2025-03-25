@@ -50,11 +50,9 @@ const Report: React.FC = () => {
           let geoJson = {};
           console.log(graphic);
       
-          // Convert geometry to geographic coordinates (WGS84)
           const geoGeometry = graphic.geometry.clone();
-          geoGeometry.spatialReference = mapView.spatialReference; // Ensure it knows it's Web Mercator
-          
-          // Convert to geographic (latitude/longitude)
+          geoGeometry.spatialReference = mapView.spatialReference; 
+
           const geographicGeometry = webMercatorUtils.webMercatorToGeographic(geoGeometry);
       
           if (geographicGeometry.type === "point") {

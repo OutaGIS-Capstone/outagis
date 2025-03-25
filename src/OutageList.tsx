@@ -6,10 +6,10 @@ const OutageList: React.FC = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [outagesData, setOutagesData] = useState<any[]>([]); // State for storing outages data
-  const [loading, setLoading] = useState(false); // Loading state
-  const [error, setError] = useState<string | null>(null); // Error state
-  const [recentOutage, setRecentOutage] = useState<any>(null); // State to store most recent outage
+  const [outagesData, setOutagesData] = useState<any[]>([]); 
+  const [loading, setLoading] = useState(false); 
+  const [error, setError] = useState<string | null>(null); 
+  const [recentOutage, setRecentOutage] = useState<any>(null); 
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -25,7 +25,7 @@ const OutageList: React.FC = () => {
     fetch("https://10yztw42id.execute-api.ca-central-1.amazonaws.com/default/outagis-retrieve_outage_most_recent_n?n=1")
       .then((response) => response.json())
       .then((data) => {
-        const recentOutage = data[0]; // Assuming the API returns an array
+        const recentOutage = data[0];
         setRecentOutage(recentOutage);
         setLoading(false);
       })
@@ -35,7 +35,6 @@ const OutageList: React.FC = () => {
       });
   }, []);
 
-  // Fetch all outages data
   useEffect(() => {
     setLoading(true);
     fetch("https://ceu2tpg6ok.execute-api.ca-central-1.amazonaws.com/default/outagis-retrieve_all_outages")
@@ -86,7 +85,6 @@ const OutageList: React.FC = () => {
           </Button>
         </Typography>
 
-        {/* Recent Outage Alert */}
         {recentOutage && (
           <Alert severity="error" sx={{ my: 2 }}>
             <Typography variant="h6">⚠️ Regional alert</Typography>
@@ -130,7 +128,6 @@ const OutageList: React.FC = () => {
           </Table>
         </TableContainer>
 
-        {/* Pagination */}
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"

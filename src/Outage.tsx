@@ -276,7 +276,7 @@ const Outage: React.FC = () => {
       marginTop: isMobile ? "16px" : "90px",
       backgroundColor: "#f5f5f7"
     }}>
-      {/* Form Panel */}
+
       <Box sx={{
         width: isMobile ? "calc(100% - 32px)" : "40%",
         padding: isMobile ? "16px" : "32px",
@@ -507,7 +507,7 @@ const Outage: React.FC = () => {
         )}
       </Box>
   
-      {/* Map Panel */}
+
       <Box sx={{ 
         width: isMobile ? "100%" : "60%",
         height: isMobile ? "400px" : "100%",
@@ -530,7 +530,6 @@ const Outage: React.FC = () => {
         }}></div>
       </Box>
   
-      {/* Success Notification */}
       <Snackbar 
         open={showSnackbar} 
         autoHideDuration={3000} 
@@ -554,7 +553,6 @@ const Outage: React.FC = () => {
         </Alert>
       </Snackbar>
 
-      {/* Error Notification */}
       {error && (
         <Snackbar
           open={!!error}
@@ -572,7 +570,6 @@ const Outage: React.FC = () => {
         </Snackbar>
       )}
 
-      {/* Delete Confirmation Dialog */}
       <Dialog
         open={deleteConfirmOpen}
         onClose={() => setDeleteConfirmOpen(false)}

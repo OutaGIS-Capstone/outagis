@@ -184,7 +184,6 @@ const MyOutages: React.FC = () => {
         </>
       )}
 
-      {/* Modal for Editing Outage */}
       <Modal open={openModal} onClose={handleCloseModal}>
         <Box
           sx={{
@@ -273,7 +272,6 @@ const MyOutages: React.FC = () => {
         </Box>
       </Modal>
 
-      {/* Snackbar for error message */}
       <Snackbar open={errorMessage !== ""} autoHideDuration={6000} onClose={() => setErrorMessage("")}>
         <Alert severity="error" onClose={() => setErrorMessage("")}>
           {errorMessage}

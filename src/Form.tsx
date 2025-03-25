@@ -139,7 +139,6 @@ const Form: React.FC = () => {
               {...register("email")}
             />
 
-            {/* Validation to ensure either phone or email is required */}
             <Typography color="error" variant="body2">
               {errors.phone && !errors.email && "Please provide either a phone number or email."}
               {errors.email && !errors.phone && "Please provide either a phone number or email."}
