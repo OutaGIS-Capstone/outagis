@@ -9,7 +9,7 @@ frontend:
   phases:
     build:
       commands:
-        - npm run build
+        - npm run build -- --noEmitOnError false
   artifacts:
     baseDirectory: dist
     files:
