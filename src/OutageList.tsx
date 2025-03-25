@@ -74,7 +74,7 @@ const OutageList: React.FC = () => {
 
         <Typography variant="body1" gutterBottom>
           Lost power? Check the outage map to see if we’re aware of the outage. If your outage isn’t shown, call{" "}
-          <strong>1 800 XXX XXXX</strong> on your mobile or log in to
+          <strong>1 800 XXX XXXX</strong> on your mobile or
           <Button
             variant="text"
             sx={{
@@ -83,7 +83,7 @@ const OutageList: React.FC = () => {
             }}
             onClick={() => navigate("/report-outage")}
           >
-            Report it online
+            report it online.
           </Button>
         </Typography>
 
