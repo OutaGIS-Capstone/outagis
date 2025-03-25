@@ -13,7 +13,7 @@ esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurDEIiAqgC6zGwmjRMGhSO75XQSaD5YVw_tZ
 
 const Report: React.FC = () => {
   const navigate = useNavigate();
-  const [view, setView] = useState<MapView | null>(null);
+  const [, setView] = useState<MapView | null>(null);
   const [graphicsLayer, setGraphicsLayer] = useState<GraphicsLayer | null>(null);
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [outageData, setOutageData] = useState<any[]>([]);

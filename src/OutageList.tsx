@@ -30,6 +30,7 @@ const OutageList: React.FC = () => {
         setLoading(false);
       })
       .catch((error) => {
+		console.error(error);
         setError("Failed to load recent outage data");
         setLoading(false);
       });
@@ -58,6 +59,7 @@ const OutageList: React.FC = () => {
         setLoading(false);
       })
       .catch((error) => {
+		console.error(error);
         setError("Failed to load data");
         setLoading(false);
       });

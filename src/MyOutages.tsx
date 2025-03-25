@@ -99,7 +99,7 @@ const MyOutages: React.FC = () => {
         body: JSON.stringify(updatedOutage),
       })
         .then((response) => response.json())
-        .then((data) => {
+        .then(() => {
           setOutages((prevOutages) =>
             prevOutages.map((outage) =>
               outage.outage_id === currentOutage.outage_id ? { ...outage, ...updatedOutage } : outage

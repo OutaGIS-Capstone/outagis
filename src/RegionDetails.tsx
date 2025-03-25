@@ -8,7 +8,7 @@ const RegionDetails: React.FC = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [outageData, setOutageData] = useState<unknown[]>([]); 
-  const [loading, setLoading] = useState(false); 
+  const [, setLoading] = useState(false); 
   const [error, setError] = useState<string | null>(null); 
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const RegionDetails: React.FC = () => {
       });
   }, [regionName]);
 
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const handleChangePage = (newPage: number) => {
     setPage(newPage);
   };
 
@@ -49,7 +49,7 @@ const RegionDetails: React.FC = () => {
       <Typography variant="h5" gutterBottom>{regionName}</Typography>
       
       <Typography variant="body1">
-        Total customers affected: {outageData.reduce((sum, o) => sum + (isNaN(Number(o.population_affected)) ? 0 : Number(o.population_affected)), 0)}
+        Total customers affected: {outageData.reduce((sum: any, o: any) => sum + (isNaN(Number(o.population_affected)) ? 0 : Number(o.population_affected)), 0)}
       </Typography>
 
       <TableContainer component={Paper}>
@@ -66,7 +66,7 @@ const RegionDetails: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {outageData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((outage, index) => (
+            {outageData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((outage: any) => (
               <TableRow key={outage._id}>
                 <TableCell align="center" sx={{ wordWrap: 'break-word', maxWidth: '150px' }}>
                   {outage.geojson && outage.geojson.geometry && outage.geojson.type == "Point" ? `${outage.geojson.geometry.coordinates[0]}, ${outage.geojson.geometry.coordinates[1]}` : "Polygon"} 
