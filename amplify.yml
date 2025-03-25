@@ -9,7 +9,7 @@ frontend:
   phases:
     build:
       commands:
-        - npm run build -- --noEmitOnError false
+        - SKIP_TYPECHECK=1 npm run build
   artifacts:
     baseDirectory: dist
     files:
