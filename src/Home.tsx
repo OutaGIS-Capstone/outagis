@@ -42,7 +42,6 @@ const HomePage: React.FC = () => {
           "https://ceu2tpg6ok.execute-api.ca-central-1.amazonaws.com/default/outagis-retrieve_all_outages"
         );
         const data = await response.json();
-        console.log("API Response:", data);
   
         graphicsLayer.removeAll();
         data.forEach((outage: any) => {
@@ -66,8 +65,6 @@ const HomePage: React.FC = () => {
             if (Array.isArray(polygonCoords[0][0])) {
               polygonCoords = polygonCoords[0];
             }
-  
-            console.log("Polygon coordinates:", polygonCoords);
   
             const polygon = new Polygon({
               rings: polygonCoords,
@@ -106,8 +103,8 @@ const HomePage: React.FC = () => {
   
 
   return (
-    <Box sx={{ width: "100%", height: "100vh", marginTop: "90px" }}>
-      <div id="mapViewDiv" style={{ width: "100%", height: "80%", marginTop: "50px" }}></div>
+    <Box sx={{ width: "100%", height: "100vh", marginTop: "80px" }}>
+      <div id="mapViewDiv" style={{ width: "100%", height: "90%" }}></div>
     </Box>
   );
 };
