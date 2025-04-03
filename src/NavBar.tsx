@@ -215,14 +215,14 @@ function NavBar() {
             ))}
           </Box>
 
-          {user && (
+          {/* {user && (
             <Box sx={{ display: { xs: "none", md: "inline"},  mx: 2 }}>
               <Typography variant="body1" sx={{color: "#1f1e1e", display: "inline", mr: 1 }}>
                 Admin Mode
               </Typography>
               <Switch checked={isAdmin} onChange={toggleAdmin} color="primary" />
             </Box>
-          )}
+          )} */}
           {/* {user && (
             <Box sx={{display: { xs: "none", md: "inline"}, flexGrow: 0 }}>
               <Tooltip title="Open settings">

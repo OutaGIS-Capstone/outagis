@@ -59,31 +59,31 @@ const Form: React.FC = () => {
     if (data.cause) requestData.cause = data.cause;
     console.log("Form submitted:", requestData);
 
-    createOutage(requestData);
+    // createOutage(requestData);
 
-    // try {
-    //   const response = await fetch(
-    //     "https://xtrgtablbj.execute-api.ca-central-1.amazonaws.com/default/outagis-insert_outage",
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(requestData),
-    //     }
-    //   );
+    try {
+      const response = await fetch(
+        "https://xtrgtablbj.execute-api.ca-central-1.amazonaws.com/default/outagis-insert_outage",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+        }
+      );
 
-    //   if (response.ok) {
-    //     setOpenSnackbar(true);
-    //     setTimeout(() => {
-    //       navigate("/");
-    //     }, 2000);
-    //   } else {
-    //     console.error("Failed to submit outage.");
-    //   }
-    // } catch (error) {
-    //   console.error("Error submitting outage:", error);
-    // }
+      if (response.ok) {
+        setOpenSnackbar(true);
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      } else {
+        console.error("Failed to submit outage.");
+      }
+    } catch (error) {
+      console.error("Error submitting outage:", error);
+    }
   };
 
   return (

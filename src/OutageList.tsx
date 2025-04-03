@@ -42,6 +42,7 @@ const OutageList: React.FC = () => {
     fetch("https://ceu2tpg6ok.execute-api.ca-central-1.amazonaws.com/default/outagis-retrieve_all_outages")
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         const regionOutages = data.reduce((acc: any, outage: any) => {
           const region = outage.region || "Unknown Region"; 
           if (!acc[region]) acc[region] = { outages: 0, customers: 0 }; 
