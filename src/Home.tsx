@@ -8,6 +8,7 @@ import { Point, Polygon } from "@arcgis/core/geometry";
 import { SimpleFillSymbol, SimpleMarkerSymbol } from "@arcgis/core/symbols";
 import Graphic from "@arcgis/core/Graphic";
 import esriConfig from "@arcgis/core/config";
+import { getAllOutages } from "./api/api";
 
 esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurDEIiAqgC6zGwmjRMGhSO75XQSaD5YVw_tZ9FZuP1tp0wYsJZ6FsQiRPg0jC84RuHYrU-vBZl9ZQIoKh-k6wPuKAUpBsmSYakTfeD2WE3sc6MLl0evhoM7_ZHUVQHuOMQWZYe6Z2s0TfglsWDpxJAtcwdt1krJJKXhK9HaQoL9aC8Y3230L4lmFJ8zH1Ye2g5z1cxw_OcVefB7_8SAbup3A.AT1_ujBXG8pX";
 
@@ -20,7 +21,12 @@ const HomePage: React.FC = () => {
       portalItem: { id: "65b663af59944a2dac3834f34d48b9c9" },
     });
 
-    const mapView = new MapView({ container: "mapViewDiv", map: webMap });
+    const mapView = new MapView({ 
+      container: "mapViewDiv", 
+      map: webMap, 
+      zoom: 6,
+      center: [-123,54]});
+   
 
     const layer = new GraphicsLayer();
     webMap.add(layer);
@@ -38,10 +44,11 @@ const HomePage: React.FC = () => {
   
     const fetchOutages = async () => {
       try {
-        const response = await fetch(
-          "https://ceu2tpg6ok.execute-api.ca-central-1.amazonaws.com/default/outagis-retrieve_all_outages"
-        );
-        const data = await response.json();
+        // const response = await fetch(
+        //   "https://ceu2tpg6ok.execute-api.ca-central-1.amazonaws.com/default/outagis-retrieve_all_outages"
+        // );
+        // const data = await response.json();
+        const data = await getAllOutages();
   
         graphicsLayer.removeAll();
         data.forEach((outage: any) => {
@@ -103,8 +110,8 @@ const HomePage: React.FC = () => {
   
 
   return (
-    <Box sx={{ width: "100%", height: "100vh", marginTop: "80px" }}>
-      <div id="mapViewDiv" style={{ width: "100%", height: "90%" }}></div>
+    <Box sx={{ width: "100%", height: "100vh", marginTop: "70px" }}>
+      <div id="mapViewDiv" style={{ width: "100%", height: "95%" }}></div>
     </Box>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Snackbar, Alert } from "@mui/material";
+import { Box, Button, Snackbar, Alert, Typography } from "@mui/material";
 import WebMap from "@arcgis/core/WebMap";
 import MapView from "@arcgis/core/views/MapView";
 import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
@@ -14,7 +14,7 @@ esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurDEIiAqgC6zGwmjRMGhSO75XQSaD5YVw_tZ
 
 const Report: React.FC = () => {
   const navigate = useNavigate();
-  const [, setView] = useState<MapView | null>(null);
+  const [view, setView] = useState<MapView | null>(null);
   const [graphicsLayer, setGraphicsLayer] = useState<GraphicsLayer | null>(null);
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [outageData, setOutageData] = useState<any[]>([]);
@@ -31,7 +31,6 @@ const Report: React.FC = () => {
           view: mapView,
           searchAllEnabled: false,
           includeDefaultSources: false,
-          locationEnabled: false,
           sources: [
             {
               url: "https://geocoder.api.gov.bc.ca/addresses.json",
@@ -68,7 +67,10 @@ const Report: React.FC = () => {
               },
             },
             {
-
+              // ArcGIS Search widget (fallback)
+              url: "https://utility.arcgis.com/usrsvcs/appservices/Geocoder/GeocodeServer",
+              name: "ArcGIS Geocoder",
+              placeholder: "Search locations...",
             }
           ]
         });
@@ -95,7 +97,6 @@ const Report: React.FC = () => {
         })
       
       sketch.visibleElements = {
-        undoRedoMenu: false,
         createTools: {
           circle: false,
           freehandPolygon: true, // hide standard polygon button
@@ -197,13 +198,24 @@ const Report: React.FC = () => {
     console.log("Outage data:", outageData);
     navigate("/report-form", { state: { outageData } });
   };
+  const handleTutorial = () => {
+    navigate("/tutorial");
+  };
 
   return (
-    <Box sx={{ width: "100%", height: "100vh", marginTop: "90px" }}>
-      <div id="mapViewDiv" style={{ width: "100%", height: "80%", marginTop: "50px" }}></div>
-      <Button onClick={handleNext} variant="contained" color="primary" sx={{ margin: "20px" }}>
-        Next
-      </Button>
+    <Box sx={{ width: "100%", height: "100vh",  display: "flex", flexDirection: "column" }}>
+      <div id="mapViewDiv" style={{ width: "100%", height: "90%", marginTop: "75px", borderRadius: "12px", overflow: "hidden" }}></div>
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px" }}>
+        <Typography 
+          onClick={handleTutorial} 
+          sx={{ textDecoration: "underline", color: "#007aff", fontWeight: "500", cursor: "pointer", "&:hover": { textDecoration: "underline" } }}
+        >
+          Click here to watch a tutorial video!
+        </Typography>
+        <Button onClick={handleNext} variant="contained" color="primary" sx={{ borderRadius: "8px", padding: "10px 20px" }}>
+          Next
+        </Button>
+      </Box>
       <Snackbar open={showSnackbar} autoHideDuration={3000} onClose={() => setShowSnackbar(false)}>
         <Alert onClose={() => setShowSnackbar(false)} severity="success">
           Outage reported successfully!

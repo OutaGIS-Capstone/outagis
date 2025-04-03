@@ -26,6 +26,7 @@ const OutageList: React.FC = () => {
       .then((response) => response.json())
       .then((data) => {
         const recentOutage = data[0];
+        console.log(recentOutage);
         setRecentOutage(recentOutage);
         setLoading(false);
       })
@@ -93,7 +94,7 @@ const OutageList: React.FC = () => {
             <Typography>
               We have posted updates for: <strong>{recentOutage.region}</strong>
               <br />
-              <small>Last updated: {new Date(recentOutage.timestamp).toLocaleString()}</small>
+              <small>Last updated: {new Date(recentOutage.timestamp_created).toLocaleString()}</small>
             </Typography>
           </Alert>
         )}
@@ -140,9 +141,6 @@ const OutageList: React.FC = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
 
-        <Typography variant="caption" display="block" gutterBottom>
-          Last updated: Feb 5, 3:34 p.m.
-        </Typography>
       </Box>
     </Box>
   );

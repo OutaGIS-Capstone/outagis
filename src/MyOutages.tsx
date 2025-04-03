@@ -23,28 +23,11 @@ const MyOutages: React.FC = () => {
 
   useEffect(() => {
     if (user) {
-      // Static data
-      const staticOutages = Array.from({ length: 50 }, (_, i) => ({
-        outage_id: i + 1,
-        region: "Region " + (i + 1),
-        municipality: "Municipality " + (i + 1),
-        offSince: "2025-03-10 08:00",
-        status: i % 2 === 0 ? "Outage" : "Restored",
-        area: "Area " + (i + 1),
-        affected: (i + 1) * 10,
-        cause: "Storm damage",
-        reportedAt: "2025-03-10 09:00",
-      }));
-
-      setOutages(staticOutages);
-      setLoading(false);
-
-      /*
+      console.log(user.userId);
       // Uncomment when API is ready
-      fetch("https://brrj1peht3.execute-api.ca-central-1.amazonaws.com/default/outagis-retrieve_outage_by_user", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: user.username })
+      fetch(`https://brrj1peht3.execute-api.ca-central-1.amazonaws.com/default/outagis-retrieve_outage_by_user/user_id=${user.userId}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
       })
       .then(response => response.json())
       .then(data => {
@@ -55,7 +38,6 @@ const MyOutages: React.FC = () => {
         console.error("Error fetching outages:", error);
         setLoading(false);
       });
-      */
     }
   }, [user]);
 

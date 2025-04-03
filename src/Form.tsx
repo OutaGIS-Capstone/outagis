@@ -11,6 +11,8 @@ import {
   Alert,
   Box,
 } from "@mui/material";
+import { createOutage } from "./api/api";
+import { create } from "@mui/material/styles/createTransitions";
 
 const Form: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -33,11 +35,7 @@ const Form: React.FC = () => {
   }, [outageData]);
 
   const onSubmit = async (data: any) => {
-
     let locationData: any;
-    console.log(outageData[0]?.type);
-
-    // Check if the location data is a Point or Polygon and format accordingly
     if (outageData[0]?.type === "Point") {
       locationData = {
         type: "Point",
@@ -61,29 +59,31 @@ const Form: React.FC = () => {
     if (data.cause) requestData.cause = data.cause;
     console.log("Form submitted:", requestData);
 
-    try {
-      const response = await fetch(
-        "https://xtrgtablbj.execute-api.ca-central-1.amazonaws.com/default/outagis-insert_outage",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestData),
-        }
-      );
+    createOutage(requestData);
 
-      if (response.ok) {
-        setOpenSnackbar(true);
-        setTimeout(() => {
-          navigate("/");
-        }, 2000);
-      } else {
-        console.error("Failed to submit outage.");
-      }
-    } catch (error) {
-      console.error("Error submitting outage:", error);
-    }
+    // try {
+    //   const response = await fetch(
+    //     "https://xtrgtablbj.execute-api.ca-central-1.amazonaws.com/default/outagis-insert_outage",
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify(requestData),
+    //     }
+    //   );
+
+    //   if (response.ok) {
+    //     setOpenSnackbar(true);
+    //     setTimeout(() => {
+    //       navigate("/");
+    //     }, 2000);
+    //   } else {
+    //     console.error("Failed to submit outage.");
+    //   }
+    // } catch (error) {
+    //   console.error("Error submitting outage:", error);
+    // }
   };
 
   return (

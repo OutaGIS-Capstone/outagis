@@ -17,6 +17,7 @@ import Graphic from "@arcgis/core/Graphic";
 import SketchViewModel from "@arcgis/core/widgets/Sketch/SketchViewModel";
 import esriConfig from "@arcgis/core/config";
 import * as webMercatorUtils from "@arcgis/core/geometry/support/webMercatorUtils";
+// import { getOutageById } from "./api/api.ts";
 
 esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurDEIiAqgC6zGwmjRMGhSO75XQSaD5YVw_tZ9FZuP1tp0wYsJZ6FsQiRPg0jC84RuHYrU-vBZl9ZQIoKh-k6wPuKAUpBsmSYakTfeD2WE3sc6MLl0evhoM7_ZHUVQHuOMQWZYe6Z2s0TfglsWDpxJAtcwdt1krJJKXhK9HaQoL9aC8Y3230L4lmFJ8zH1Ye2g5z1cxw_OcVefB7_8SAbup3A.AT1_ujBXG8pX";
 
@@ -56,11 +57,15 @@ const Outage: React.FC = () => {
 
   useEffect(() => {
     if (!storedOutageId) return;
-
+    // console.log(storedOutageId);
+    // const data = getOutageById(storedOutageId);
+    // console.log(data)
+    // setOutageData(data);
+    // setFormData(data);
     const fetchOutage = async () => {
       try {
         const response = await fetch(
-          `https://7cu52zycsc.execute-api.ca-central-1.amazonaws.com/default/outagis-retrieve_outage_by_id?outage_id=${storedOutageId}`
+          `https://y9bwqpgxhk.execute-api.ca-central-1.amazonaws.com/outages/${storedOutageId}`
         );
         if (!response.ok) throw new Error("Failed to fetch outage data");
         const data = await response.json();
@@ -205,14 +210,13 @@ const Outage: React.FC = () => {
         population_affected: formData.population_affected,
         cause: formData.cause,
         eta: formData.eta,
-        status: formData.status.toLowerCase(),
-        outage_id: outageId
+        status: formData.status.toLowerCase()
       };
   
       const response = await fetch(
-        "https://mr7z4ab9da.execute-api.ca-central-1.amazonaws.com/default/outagis-modify_outage",
+        `https://y9bwqpgxhk.execute-api.ca-central-1.amazonaws.com/outages/${outageId}`,
         {
-          method: "POST",
+          method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(outageUpdate),
         }

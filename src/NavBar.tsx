@@ -78,7 +78,6 @@ function NavBar() {
   const snackbarAndRedirect = () => {
     setOpenSignoutSnackbar(true);
 
-    // Delay navigation slightly to allow Snackbar to be seen
     setTimeout(() => {
       navigate("/");
     }, 2000);
