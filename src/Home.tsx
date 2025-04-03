@@ -44,11 +44,12 @@ const HomePage: React.FC = () => {
   
     const fetchOutages = async () => {
       try {
-        // const response = await fetch(
-        //   "https://ceu2tpg6ok.execute-api.ca-central-1.amazonaws.com/default/outagis-retrieve_all_outages"
-        // );
-        // const data = await response.json();
-        const data = await getAllOutages();
+        const response = await fetch(
+          "https://ceu2tpg6ok.execute-api.ca-central-1.amazonaws.com/default/outagis-retrieve_all_outages"
+        );
+        const data = await response.json();
+        // const data = await getAllOutages();
+        // console.log(data);
   
         graphicsLayer.removeAll();
         data.forEach((outage: any) => {
