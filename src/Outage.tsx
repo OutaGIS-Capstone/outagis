@@ -86,14 +86,21 @@ const Outage: React.FC = () => {
     const mapView = new MapView({ 
       container: "mapViewDiv", 
       map: webMap,
+      zoom: 12,
+      // center: [-123,54],
+      center: outageData.geojson.geometry.type === 'Point' ? 
+      outageData.geojson.geometry.coordinates : 
+      outageData.geojson.geometry.coordinates[0][0],
       padding: isMobile ? { top: 50 } : undefined
     });
-    
+    // console.log(outageData.geojson.geometry === "Point" ? 
+    //   {longitude: outageData.geojson.geometry[0], latitude: outageData.geojson.geometry[1]} : 
+    //   {longitude: outageData.geojson.geometry[0], latitude: outageData.geojson.geometry[1]});
     const layer = new GraphicsLayer();
     webMap.add(layer);
     setGraphicsLayer(layer);
     setView(mapView);
-
+console.log(outageData.geojson.geometry );
     const { type, coordinates } = outageData.geojson.geometry;
     let newGraphic: Graphic | null = null;
 
