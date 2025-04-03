@@ -223,7 +223,7 @@ function NavBar() {
               <Switch checked={isAdmin} onChange={toggleAdmin} color="primary" />
             </Box>
           )}
-          {user && (
+          {/* {user && (
             <Box sx={{display: { xs: "none", md: "inline"}, flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -281,7 +281,7 @@ function NavBar() {
                 </Button>
               ))}
             </Box>
-          )}
+          )} */}
 
         </Toolbar>
       </Container>
