@@ -179,9 +179,22 @@ function NavBar() {
             </Box>
           </Drawer>
 
-          <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}>
-            <img src="/logo.svg" style={{ height: "3em", width: "9em", marginRight: "10px" }} alt="logo" />
-          </Box>
+          <Box
+  sx={{
+    position: { xs: "absolute", md: "relative" }, 
+    left: { xs: "50%", md: "auto" }, 
+    transform: { xs: "translateX(-50%)", md: "none" }, 
+    display: "flex", 
+    alignItems: "center"
+  }}
+>
+  <img
+    src="/logo.svg"
+    style={{ height: "3em", width: "9em", marginRight: "10px" }}
+    alt="logo"
+  />
+</Box>
+
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (

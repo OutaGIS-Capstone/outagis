@@ -31,6 +31,7 @@ const Report: React.FC = () => {
           view: mapView,
           searchAllEnabled: false,
           includeDefaultSources: false,
+          locationEnabled: false,
           sources: [
             {
               url: "https://geocoder.api.gov.bc.ca/addresses.json",
@@ -54,7 +55,7 @@ const Report: React.FC = () => {
                   // Zoom and pan the map to the BC geocoder result
                   await mapView.goTo({
                     center: [longitude, latitude], // Corrected order
-                    zoom: 14
+                    zoom: 20
                   });
               
                   return data.features.map((feature: any) => ({
