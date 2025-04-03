@@ -28,9 +28,9 @@ const RegionDetails: React.FC = () => {
       });
   }, [regionName]);
 
-  const handleChangePage = (newPage: number) => {
+  const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
-  };
+  };  
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
@@ -93,11 +93,12 @@ const RegionDetails: React.FC = () => {
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
         count={outageData.length}
-        rowsPerPage={rowsPerPage}
+        rowsPerPage={-1}  
         page={page}
-        onPageChange={handleChangePage}
+        onPageChange={handleChangePage} 
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+
     </Box>
   );
 };
