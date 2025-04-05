@@ -48,8 +48,6 @@ const HomePage: React.FC = () => {
           "https://ceu2tpg6ok.execute-api.ca-central-1.amazonaws.com/default/outagis-retrieve_all_outages"
         );
         const data = await response.json();
-        // const data = await getAllOutages();
-        // console.log(data);
   
         graphicsLayer.removeAll();
         data.forEach((outage: any) => {
@@ -57,7 +55,6 @@ const HomePage: React.FC = () => {
   
           if (outage.geojson?.geometry?.type === "Point") {
             const [longitude, latitude] = outage.geojson.geometry.coordinates;
-            console.log("Point coordinates:", { longitude, latitude });
   
             const point = new Point({ longitude, latitude });
             const markerSymbol = new SimpleMarkerSymbol({

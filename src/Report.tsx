@@ -47,8 +47,6 @@ const Report: React.FC = () => {
                   const feature = data.features[0];
                   const coordinates = feature.geometry.coordinates; // [longitude, latitude]
               
-                  console.log("Coordinates:", coordinates);
-              
                   // Ensure correct coordinate order
                   const [longitude, latitude] = coordinates;
               
@@ -118,7 +116,6 @@ const Report: React.FC = () => {
         if (event.state === "complete") {
           const graphic = event.graphic;
           let geoJson = {};
-          console.log(graphic);
       
           const geoGeometry = graphic.geometry.clone();
           geoGeometry.spatialReference = mapView.spatialReference; 
@@ -131,7 +128,6 @@ const Report: React.FC = () => {
               coordinates: [geographicGeometry.longitude, geographicGeometry.latitude],
             };
           } else if (geographicGeometry.type === "polygon" , {mode: "freehand"}) {
-            console.log("here");
             const hatchedSymbol = new SimpleFillSymbol({
               style: "diagonal-cross", // or "cross", "horizontal", etc.
               color: [255, 0, 0, 0.3],  // semi-transparent fill
@@ -150,7 +146,6 @@ const Report: React.FC = () => {
                 ])
               ),
             };
-            console.log(geoJson.coordinates);
           }
       
           setOutageData((prev) => [...prev, geoJson]);
@@ -196,7 +191,6 @@ const Report: React.FC = () => {
   };
 
   const handleNext = () => {
-    console.log("Outage data:", outageData);
     navigate("/report-form", { state: { outageData } });
   };
   const handleTutorial = () => {

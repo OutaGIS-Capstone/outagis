@@ -17,7 +17,6 @@ const RegionDetails: React.FC = () => {
       .then((response) => response.json())
       .then((data) => {
         setOutageData(data);  
-        console.log(data);
         const outageIds = data.map((outage: any) => outage._id);
         localStorage.setItem("outageList", JSON.stringify(outageIds));
         setLoading(false);
@@ -39,7 +38,6 @@ const RegionDetails: React.FC = () => {
 
   const handleViewOnMap = (outageId: string) => {
     localStorage.setItem("selectedOutageId", outageId);
-    console.log(outageId);
     navigate(`/outage/${outageId}`);
   };
 
