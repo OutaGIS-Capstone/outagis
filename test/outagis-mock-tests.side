@@ -1,0 +1,644 @@
+{
+  "id": "fb97c790-fd89-43ab-b6f6-36a76397f48d",
+  "version": "2.0",
+  "name": "outagis-mock-tests",
+  "url": "https://outagis.com",
+  "tests": [{
+    "id": "aca417f0-4707-4bc3-81d4-b54fb40060ca",
+    "name": "Untitled",
+    "commands": []
+  }, {
+    "id": "fe909069-56a2-4510-a481-d76e2419b771",
+    "name": "point-outage-report",
+    "commands": [{
+      "id": "c223e6be-f41b-4ffb-a89b-09f63ae40c5a",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4a21178e-9563-4158-ad65-8e8b8946f9da",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1366x736",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bce070c5-37b5-4fe2-8c1c-63f8b7a89aef",
+      "comment": "",
+      "command": "click",
+      "target": "id=:r3:",
+      "targets": [
+        ["id=:r3:", "id"],
+        ["css=#\\3Ar3\\3A", "css:finder"],
+        ["xpath=//a[contains(text(),'Report an Outage')]", "xpath:link"],
+        ["xpath=//a[@id=':r3:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/header/div/div/div[3]/a[3]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/report-outage')]", "xpath:href"],
+        ["xpath=//a[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9fd229ed-d0b3-4ae7-960a-7d2d462e64a5",
+      "comment": "",
+      "command": "click",
+      "target": "id=19611dcb882-widget-5-pointer-select",
+      "targets": [
+        ["id=19611dcb882-widget-5-pointer-select", "id"],
+        ["css=#\\31 9611dcb882-widget-5-pointer-select", "css:finder"],
+        ["xpath=//calcite-action[@id='19611dcb882-widget-5-pointer-select']", "xpath:attributes"],
+        ["xpath=//div[@id='mapViewDiv']/div/div[3]/div/div[2]/div[2]/div/div/calcite-action-pad/calcite-action-group/calcite-action", "xpath:idRelative"],
+        ["xpath=//calcite-action", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a29df58a-6184-453d-8864-2e2749a8b053",
+      "comment": "",
+      "command": "click",
+      "target": "id=19611dcb882-widget-5-point-button",
+      "targets": [
+        ["id=19611dcb882-widget-5-point-button", "id"],
+        ["css=#\\31 9611dcb882-widget-5-point-button", "css:finder"],
+        ["xpath=//calcite-action[@id='19611dcb882-widget-5-point-button']", "xpath:attributes"],
+        ["xpath=//div[@id='mapViewDiv']/div/div[3]/div/div[2]/div[2]/div/div/calcite-action-pad/calcite-action-group[2]/calcite-action[2]", "xpath:idRelative"],
+        ["xpath=//calcite-action[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7fc840d4-62a8-4e76-85ed-31ce0705df01",
+      "comment": "",
+      "command": "click",
+      "target": "css=.esri-view-surface",
+      "targets": [
+        ["css=.esri-view-surface", "css:finder"],
+        ["xpath=//div[@id='mapViewDiv']/div/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "74898d59-8056-4d92-9ce9-a156aee6a8c3",
+      "comment": "",
+      "command": "click",
+      "target": "id=:r4:",
+      "targets": [
+        ["id=:r4:", "id"],
+        ["css=#\\3Ar4\\3A", "css:finder"],
+        ["xpath=//button[@id=':r4:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "e0a92f61-b616-450e-b5a8-a853d4e7d173",
+    "name": "polygon-outage-report",
+    "commands": [{
+      "id": "6f15f01c-70f4-44a1-b169-18a5139f7691",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "52c217e2-af94-445a-816a-73eb37aaacdc",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1366x736",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e17df10d-2663-4e93-aae3-4c6e52cf6f15",
+      "comment": "",
+      "command": "click",
+      "target": "id=:r3:",
+      "targets": [
+        ["id=:r3:", "id"],
+        ["css=#\\3Ar3\\3A", "css:finder"],
+        ["xpath=//a[contains(text(),'Report an Outage')]", "xpath:link"],
+        ["xpath=//a[@id=':r3:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/header/div/div/div[3]/a[3]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/report-outage')]", "xpath:href"],
+        ["xpath=//a[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "87b5e1d5-2af6-4f6b-ba52-ad22247c5416",
+      "comment": "",
+      "command": "click",
+      "target": "id=19611de8996-widget-5-pointer-select",
+      "targets": [
+        ["id=19611de8996-widget-5-pointer-select", "id"],
+        ["css=#\\31 9611de8996-widget-5-pointer-select", "css:finder"],
+        ["xpath=//calcite-action[@id='19611de8996-widget-5-pointer-select']", "xpath:attributes"],
+        ["xpath=//div[@id='mapViewDiv']/div/div[3]/div/div[2]/div[2]/div/div/calcite-action-pad/calcite-action-group/calcite-action", "xpath:idRelative"],
+        ["xpath=//calcite-action", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "172757bc-2a12-411b-af72-b18f3a22101c",
+      "comment": "",
+      "command": "click",
+      "target": "id=19611de8996-widget-5-freehandPolygon-button",
+      "targets": [
+        ["id=19611de8996-widget-5-freehandPolygon-button", "id"],
+        ["css=#\\31 9611de8996-widget-5-freehandPolygon-button", "css:finder"],
+        ["xpath=//calcite-action[@id='19611de8996-widget-5-freehandPolygon-button']", "xpath:attributes"],
+        ["xpath=//div[@id='mapViewDiv']/div/div[3]/div/div[2]/div[2]/div/div/calcite-action-pad/calcite-action-group[2]/calcite-action", "xpath:idRelative"],
+        ["xpath=//calcite-action-group[2]/calcite-action", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cf4c813f-84f2-4ce0-b268-cdc30788e753",
+      "comment": "",
+      "command": "click",
+      "target": "css=.esri-view-surface",
+      "targets": [
+        ["css=.esri-view-surface", "css:finder"],
+        ["xpath=//div[@id='mapViewDiv']/div/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8c85cfe0-b4c2-4a6d-9ec7-26f01da2b17f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.esri-view-surface",
+      "targets": [
+        ["css=.esri-view-surface", "css:finder"],
+        ["xpath=//div[@id='mapViewDiv']/div/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "765c3b0c-48e4-4ead-8c1c-eb22d1cc8713",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "id=:r4:",
+      "targets": [
+        ["id=:r4:", "id"],
+        ["css=#\\3Ar4\\3A", "css:finder"],
+        ["xpath=//button[@id=':r4:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "afef531a-cddd-46e9-943c-5ddec00af50a",
+      "comment": "",
+      "command": "click",
+      "target": "id=:r4:",
+      "targets": [
+        ["id=:r4:", "id"],
+        ["css=#\\3Ar4\\3A", "css:finder"],
+        ["xpath=//button[@id=':r4:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "4f2a0bf2-7c29-4e8e-b96d-7a84ebf0d637",
+    "name": "outage-form",
+    "commands": [{
+      "id": "87908edf-3529-420c-a6df-bee8c5b77e87",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "746578d0-5055-4744-bca4-c1bbcaee23c1",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1366x736",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a254ae40-16cf-4e46-bcf2-4d5781a8bd0a",
+      "comment": "",
+      "command": "click",
+      "target": "id=:r3:",
+      "targets": [
+        ["id=:r3:", "id"],
+        ["css=#\\3Ar3\\3A", "css:finder"],
+        ["xpath=//a[contains(text(),'Report an Outage')]", "xpath:link"],
+        ["xpath=//a[@id=':r3:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/header/div/div/div[3]/a[3]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/report-outage')]", "xpath:href"],
+        ["xpath=//a[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "22cd3f31-542e-48ab-90a0-b9676067199d",
+      "comment": "",
+      "command": "click",
+      "target": "id=19611e06a93-widget-5-point-button",
+      "targets": [
+        ["id=19611e06a93-widget-5-point-button", "id"],
+        ["css=#\\31 9611e06a93-widget-5-point-button", "css:finder"],
+        ["xpath=//calcite-action[@id='19611e06a93-widget-5-point-button']", "xpath:attributes"],
+        ["xpath=//div[@id='mapViewDiv']/div/div[3]/div/div[2]/div[2]/div/div/calcite-action-pad/calcite-action-group[2]/calcite-action[2]", "xpath:idRelative"],
+        ["xpath=//calcite-action[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ca2a8c26-5699-4ba9-8927-3815e4d04f8b",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "css=canvas",
+      "targets": [
+        ["css=canvas", "css:finder"],
+        ["xpath=//div[@id='mapViewDiv']/div/div/canvas", "xpath:idRelative"],
+        ["xpath=//canvas", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "07131856-6137-4aca-82da-cf37838da140",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.esri-view-surface",
+      "targets": [
+        ["css=.esri-view-surface", "css:finder"],
+        ["xpath=//div[@id='mapViewDiv']/div/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a9852bff-5aea-4af5-a18a-0480673bbbab",
+      "comment": "",
+      "command": "click",
+      "target": "css=.esri-view-surface",
+      "targets": [
+        ["css=.esri-view-surface", "css:finder"],
+        ["xpath=//div[@id='mapViewDiv']/div/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "724e0f2b-7dec-4f12-88d6-cff784b288cf",
+      "comment": "",
+      "command": "click",
+      "target": "id=:r4:",
+      "targets": [
+        ["id=:r4:", "id"],
+        ["css=#\\3Ar4\\3A", "css:finder"],
+        ["xpath=//button[@id=':r4:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f7eb93a2-e493-45b6-858f-c2a3d33dce56",
+      "comment": "",
+      "command": "click",
+      "target": "id=:r5:",
+      "targets": [
+        ["id=:r5:", "id"],
+        ["name=name", "name"],
+        ["css=#\\3Ar5\\3A", "css:finder"],
+        ["xpath=//input[@id=':r5:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div/form/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "03873940-856d-40ca-a30d-ac6ddece32ed",
+      "comment": "",
+      "command": "type",
+      "target": "id=:r5:",
+      "targets": [
+        ["id=:r5:", "id"],
+        ["name=name", "name"],
+        ["css=#\\3Ar5\\3A", "css:finder"],
+        ["xpath=//input[@id=':r5:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div/form/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Jo Smith"
+    }, {
+      "id": "410debb7-0f57-42e0-a2e2-5d70967b5c75",
+      "comment": "",
+      "command": "click",
+      "target": "id=:r6:",
+      "targets": [
+        ["id=:r6:", "id"],
+        ["name=phone", "name"],
+        ["css=#\\3Ar6\\3A", "css:finder"],
+        ["xpath=//input[@id=':r6:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div/form/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b6d5b75b-6c39-4c6e-89bf-f0ae41897c20",
+      "comment": "",
+      "command": "type",
+      "target": "id=:r6:",
+      "targets": [
+        ["id=:r6:", "id"],
+        ["name=phone", "name"],
+        ["css=#\\3Ar6\\3A", "css:finder"],
+        ["xpath=//input[@id=':r6:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div/form/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "604-123-4567"
+    }, {
+      "id": "59c7b83a-5464-41e7-984a-e89b79860d5e",
+      "comment": "",
+      "command": "click",
+      "target": "id=:r7:",
+      "targets": [
+        ["id=:r7:", "id"],
+        ["name=email", "name"],
+        ["css=#\\3Ar7\\3A", "css:finder"],
+        ["xpath=//input[@id=':r7:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div/form/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f0be5840-0411-4ef7-89b8-85ed38b8117f",
+      "comment": "",
+      "command": "type",
+      "target": "id=:r7:",
+      "targets": [
+        ["id=:r7:", "id"],
+        ["name=email", "name"],
+        ["css=#\\3Ar7\\3A", "css:finder"],
+        ["xpath=//input[@id=':r7:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div/form/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "someone@example.com"
+    }, {
+      "id": "8615da5b-dce9-4c68-bf63-14410dde12ee",
+      "comment": "",
+      "command": "click",
+      "target": "id=:r8:",
+      "targets": [
+        ["id=:r8:", "id"],
+        ["name=description", "name"],
+        ["css=#\\3Ar8\\3A", "css:finder"],
+        ["xpath=//textarea[@id=':r8:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div/form/div[4]/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2ce7b8f3-5aa1-4973-aee4-44780c9f5389",
+      "comment": "",
+      "command": "type",
+      "target": "id=:r8:",
+      "targets": [
+        ["id=:r8:", "id"],
+        ["name=description", "name"],
+        ["css=#\\3Ar8\\3A", "css:finder"],
+        ["xpath=//textarea[@id=':r8:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div/form/div[4]/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "Tree fell on power line, affected one building."
+    }, {
+      "id": "3bc00d0b-f94b-4f18-86cc-01298285a5d1",
+      "comment": "",
+      "command": "click",
+      "target": "id=:r9:",
+      "targets": [
+        ["id=:r9:", "id"],
+        ["name=cause", "name"],
+        ["css=#\\3Ar9\\3A", "css:finder"],
+        ["xpath=//input[@id=':r9:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div/form/div[5]/div/input", "xpath:idRelative"],
+        ["xpath=//div[5]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e70635f2-93d4-4ee5-8010-a1051faf9579",
+      "comment": "",
+      "command": "type",
+      "target": "id=:r9:",
+      "targets": [
+        ["id=:r9:", "id"],
+        ["name=cause", "name"],
+        ["css=#\\3Ar9\\3A", "css:finder"],
+        ["xpath=//input[@id=':r9:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div/form/div[5]/div/input", "xpath:idRelative"],
+        ["xpath=//div[5]/div/input", "xpath:position"]
+      ],
+      "value": "Fallen tree"
+    }, {
+      "id": "9b735be0-84c9-4e52-8cf6-ebd3c56ac838",
+      "comment": "",
+      "command": "click",
+      "target": "id=:ra:",
+      "targets": [
+        ["id=:ra:", "id"],
+        ["css=#\\3Ara\\3A", "css:finder"],
+        ["xpath=//button[@id=':ra:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "94d9ab72-e6f5-4bc6-83f3-63195b95e1da",
+    "name": "view-outages",
+    "commands": [{
+      "id": "acdef9a6-197d-49f5-a03a-be7ea01d48bc",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b47e09de-f8ed-486d-ac47-d91a60cd2ae6",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1366x736",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d3e0dd19-9dbc-44d2-bff2-ebb980ac0952",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "id=:r1:",
+      "targets": [
+        ["id=:r1:", "id"],
+        ["css=#\\3Ar1\\3A", "css:finder"],
+        ["xpath=//a[contains(text(),'Outage Map')]", "xpath:link"],
+        ["xpath=//a[@id=':r1:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/header/div/div/div[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "47334997-5b52-49fe-b2ba-046a1ddfd9e2",
+      "comment": "",
+      "command": "click",
+      "target": "id=:r1:",
+      "targets": [
+        ["id=:r1:", "id"],
+        ["css=#\\3Ar1\\3A", "css:finder"],
+        ["xpath=//a[contains(text(),'Outage Map')]", "xpath:link"],
+        ["xpath=//a[@id=':r1:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/header/div/div/div[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b68ea794-0ae8-4ee7-a7a9-bed3fe80f73a",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "id=:r1:",
+      "targets": [
+        ["id=:r1:", "id"],
+        ["css=#\\3Ar1\\3A", "css:finder"],
+        ["xpath=//a[contains(text(),'Outage Map')]", "xpath:link"],
+        ["xpath=//a[@id=':r1:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/header/div/div/div[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bd327ac6-a7e9-4eb5-a13b-5592ff002c22",
+      "comment": "",
+      "command": "click",
+      "target": "id=:r2:",
+      "targets": [
+        ["id=:r2:", "id"],
+        ["css=#\\3Ar2\\3A", "css:finder"],
+        ["xpath=//a[contains(text(),'Outage List')]", "xpath:link"],
+        ["xpath=//a[@id=':r2:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/header/div/div/div[3]/a[2]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/outage-list')]", "xpath:href"],
+        ["xpath=//a[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7b08690a-dc98-4106-837a-b9a9bb2fd71b",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "id=:r4:",
+      "targets": [
+        ["id=:r4:", "id"],
+        ["css=#\\3Ar4\\3A", "css:finder"],
+        ["xpath=//button[@id=':r4:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/p/button", "xpath:idRelative"],
+        ["xpath=//p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'report it online.')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ad34f886-deee-4d46-999e-cdcde91ac1de",
+      "comment": "",
+      "command": "click",
+      "target": "id=:r4:",
+      "targets": [
+        ["id=:r4:", "id"],
+        ["css=#\\3Ar4\\3A", "css:finder"],
+        ["xpath=//button[@id=':r4:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/p/button", "xpath:idRelative"],
+        ["xpath=//p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'report it online.')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "af1df80c-ad57-49ff-b76d-ba652a530f16",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiTypography-root",
+      "targets": [
+        ["css=.MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div[2]/p", "xpath:idRelative"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'Click here to watch a tutorial video!')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "29edbc32-51f1-4372-b877-c7ebac7e9d8c",
+      "comment": "",
+      "command": "click",
+      "target": "id=:rb:",
+      "targets": [
+        ["id=:rb:", "id"],
+        ["css=#\\3Arb\\3A", "css:finder"],
+        ["xpath=//button[@id=':rb:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d2633dbb-e820-428d-8072-aaf73961b5e4",
+      "comment": "",
+      "command": "click",
+      "target": "id=:r2:",
+      "targets": [
+        ["id=:r2:", "id"],
+        ["css=#\\3Ar2\\3A", "css:finder"],
+        ["xpath=//a[contains(text(),'Outage List')]", "xpath:link"],
+        ["xpath=//a[@id=':r2:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/header/div/div/div[3]/a[2]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/outage-list')]", "xpath:href"],
+        ["xpath=//a[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e7d4c424-e20c-496f-98e9-f8ddc54b4e3b",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "id=:rd:",
+      "targets": [
+        ["id=:rd:", "id"],
+        ["css=#\\3Ard\\3A", "css:finder"],
+        ["xpath=//button[@id=':rd:']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/p/button", "xpath:idRelative"],
+        ["xpath=//p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'report it online.')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a775908e-a878-41ee-ad81-3fb0391ae069",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiTableRow-root:nth-child(1) .MuiTypography-root",
+      "targets": [
+        ["css=.MuiTableRow-root:nth-child(1) .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div[2]/table/tbody/tr/td/button", "xpath:idRelative"],
+        ["xpath=//td/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Metro Vancouver Regional District')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c15fd5bb-3454-4484-adcb-a71a2925f86e",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=View on map",
+      "targets": [
+        ["linkText=View on map", "linkText"],
+        ["css=.MuiTableRow-root:nth-child(1) .MuiTypography-root", "css:finder"],
+        ["xpath=//a[contains(text(),'View on map')]", "xpath:link"],
+        ["xpath=//div[@id='root']/div[2]/div/table/tbody/tr/td/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#')]", "xpath:href"],
+        ["xpath=//td/a", "xpath:position"],
+        ["xpath=//a[contains(.,'View on map')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "081f5cd5-555b-4f54-8535-0a2258f8946b",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["aca417f0-4707-4bc3-81d4-b54fb40060ca"]
+  }],
+  "urls": ["https://outagis.com/"],
+  "plugins": []
+}
