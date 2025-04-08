@@ -53,4 +53,3 @@ export const getUserById = async (userId: string) => {
 };
 
 const data = getAllOutages;
-console.log(data);

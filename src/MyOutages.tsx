@@ -23,8 +23,6 @@ const MyOutages: React.FC = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(user.userId);
-      // Uncomment when API is ready
       fetch(`https://brrj1peht3.execute-api.ca-central-1.amazonaws.com/default/outagis-retrieve_outage_by_user/user_id=${user.userId}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" }

@@ -17,7 +17,6 @@ import Graphic from "@arcgis/core/Graphic";
 import SketchViewModel from "@arcgis/core/widgets/Sketch/SketchViewModel";
 import esriConfig from "@arcgis/core/config";
 import * as webMercatorUtils from "@arcgis/core/geometry/support/webMercatorUtils";
-// import { getOutageById } from "./api/api.ts";
 
 esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurDEIiAqgC6zGwmjRMGhSO75XQSaD5YVw_tZ9FZuP1tp0wYsJZ6FsQiRPg0jC84RuHYrU-vBZl9ZQIoKh-k6wPuKAUpBsmSYakTfeD2WE3sc6MLl0evhoM7_ZHUVQHuOMQWZYe6Z2s0TfglsWDpxJAtcwdt1krJJKXhK9HaQoL9aC8Y3230L4lmFJ8zH1Ye2g5z1cxw_OcVefB7_8SAbup3A.AT1_ujBXG8pX";
 
@@ -57,11 +56,6 @@ const Outage: React.FC = () => {
 
   useEffect(() => {
     if (!storedOutageId) return;
-    // console.log(storedOutageId);
-    // const data = getOutageById(storedOutageId);
-    // console.log(data)
-    // setOutageData(data);
-    // setFormData(data);
     const fetchOutage = async () => {
       try {
         const response = await fetch(
@@ -87,20 +81,15 @@ const Outage: React.FC = () => {
       container: "mapViewDiv", 
       map: webMap,
       zoom: 12,
-      // center: [-123,54],
       center: outageData.geojson.geometry.type === 'Point' ? 
       outageData.geojson.geometry.coordinates : 
       outageData.geojson.geometry.coordinates[0][0],
       padding: isMobile ? { top: 50 } : undefined
     });
-    // console.log(outageData.geojson.geometry === "Point" ? 
-    //   {longitude: outageData.geojson.geometry[0], latitude: outageData.geojson.geometry[1]} : 
-    //   {longitude: outageData.geojson.geometry[0], latitude: outageData.geojson.geometry[1]});
     const layer = new GraphicsLayer();
     webMap.add(layer);
     setGraphicsLayer(layer);
     setView(mapView);
-console.log(outageData.geojson.geometry );
     const { type, coordinates } = outageData.geojson.geometry;
     let newGraphic: Graphic | null = null;
 
@@ -234,7 +223,6 @@ console.log(outageData.geojson.geometry );
       }
   
       const result = await response.json();
-      console.log("Success:", result);
       setOutageData(formData);
       setShowSnackbar(true);
       setEditingEnabled(false);

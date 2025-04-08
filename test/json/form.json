@@ -1,0 +1,213 @@
+{
+    "title": "form-v2",
+    "steps": [
+        {
+            "type": "setViewport",
+            "width": 763,
+            "height": 645,
+            "deviceScaleFactor": 1,
+            "isMobile": false,
+            "hasTouch": false,
+            "isLandscape": false
+        },
+        {
+            "type": "navigate",
+            "url": "https://outagis.com/report-form",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "https://outagis.com/report-form",
+                    "title": "OutaGIS: Rural, Remote and Reserve"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "xpath///*[@id=\":r4:\"]"
+                ],
+                [
+                    "pierce/#\\:r4\\:"
+                ]
+            ],
+            "offsetY": 41.5,
+            "offsetX": 166.5
+        },
+        {
+            "type": "change",
+            "value": "J",
+            "selectors": [
+                [
+                    "xpath///*[@id=\":r4:\"]"
+                ],
+                [
+                    "pierce/#\\:r4\\:"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "keyUp",
+            "key": "j",
+            "target": "main"
+        },
+        {
+            "type": "change",
+            "value": "Jo",
+            "selectors": [
+                [
+                    "xpath///*[@id=\":r4:\"]"
+                ],
+                [
+                    "pierce/#\\:r4\\:"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "xpath///*[@id=\":r5:\"]"
+                ],
+                [
+                    "pierce/#\\:r5\\:"
+                ]
+            ],
+            "offsetY": 40.5,
+            "offsetX": 40.5
+        },
+        {
+            "type": "change",
+            "value": "604-358-1234",
+            "selectors": [
+                [
+                    "xpath///*[@id=\":r5:\"]"
+                ],
+                [
+                    "pierce/#\\:r5\\:"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "xpath///*[@id=\":r6:\"]"
+                ],
+                [
+                    "pierce/#\\:r6\\:"
+                ]
+            ],
+            "offsetY": 41.5,
+            "offsetX": 150.5
+        },
+        {
+            "type": "change",
+            "value": "someone@example.com",
+            "selectors": [
+                [
+                    "xpath///*[@id=\":r6:\"]"
+                ],
+                [
+                    "pierce/#\\:r6\\:"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "xpath///*[@id=\":r7:\"]"
+                ],
+                [
+                    "pierce/#\\:r7\\:"
+                ]
+            ],
+            "offsetY": 10,
+            "offsetX": 74.5
+        },
+        {
+            "type": "change",
+            "value": "Tree fell on power line",
+            "selectors": [
+                [
+                    "xpath///*[@id=\":r7:\"]"
+                ],
+                [
+                    "pierce/#\\:r7\\:"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "xpath///*[@id=\":r8:\"]"
+                ],
+                [
+                    "pierce/#\\:r8\\:"
+                ]
+            ],
+            "offsetY": 36.5,
+            "offsetX": 94.5
+        },
+        {
+            "type": "change",
+            "value": "F",
+            "selectors": [
+                [
+                    "xpath///*[@id=\":r8:\"]"
+                ],
+                [
+                    "pierce/#\\:r8\\:"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "keyUp",
+            "key": "f",
+            "target": "main"
+        },
+        {
+            "type": "change",
+            "value": "Fallen tree",
+            "selectors": [
+                [
+                    "xpath///*[@id=\":r8:\"]"
+                ],
+                [
+                    "pierce/#\\:r8\\:"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "xpath///*[@id=\":r9:\"]"
+                ],
+                [
+                    "pierce/#\\:r9\\:"
+                ],
+                [
+                    "text/Submit"
+                ]
+            ],
+            "offsetY": 41.5,
+            "offsetX": 153.5
+        }
+    ]
+}

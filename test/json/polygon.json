@@ -1,0 +1,102 @@
+{
+    "title": "polygon",
+    "steps": [
+        {
+            "type": "setViewport",
+            "width": 799,
+            "height": 645,
+            "deviceScaleFactor": 1,
+            "isMobile": false,
+            "hasTouch": false,
+            "isLandscape": false
+        },
+        {
+            "type": "navigate",
+            "url": "https://outagis.com/report-outage",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "https://outagis.com/report-outage",
+                    "title": "OutaGIS: Rural, Remote and Reserve"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Select feature[role=\"button\"]"
+                ],
+                [
+                    "[data-testid='pointer-select']",
+                    "#calcite-action-edd3c62a-67e2-a405-693d-8c698190bb4e-button"
+                ],
+                [
+                    "pierce/#calcite-action-edd3c62a-67e2-a405-693d-8c698190bb4e-button"
+                ]
+            ],
+            "offsetY": 21,
+            "offsetX": 20
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Draw a polygon (freehand)[role=\"button\"]"
+                ],
+                [
+                    "[data-testid='freehandPolygon-button']",
+                    "#calcite-action-8f5abe86-ba06-0231-47e8-7b87c1d9ba64-button"
+                ],
+                [
+                    "pierce/#calcite-action-8f5abe86-ba06-0231-47e8-7b87c1d9ba64-button"
+                ]
+            ],
+            "offsetY": 29,
+            "offsetX": 20
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "div.esri-view-surface"
+                ],
+                [
+                    "xpath///*[@id=\"mapViewDiv\"]/div[1]/div[1]"
+                ],
+                [
+                    "pierce/div.esri-view-surface"
+                ]
+            ],
+            "offsetY": 273,
+            "offsetX": 477,
+            "duration": 1503
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/NEXT"
+                ],
+                [
+                    "#\\:rc\\:"
+                ],
+                [
+                    "xpath///*[@id=\":rc:\"]"
+                ],
+                [
+                    "pierce/#\\:rc\\:"
+                ],
+                [
+                    "text/Next"
+                ]
+            ],
+            "offsetY": 35.5,
+            "offsetX": 45.953125
+        }
+    ]
+}

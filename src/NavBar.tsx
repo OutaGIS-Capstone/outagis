@@ -83,6 +83,7 @@ function NavBar() {
     }, 2000);
   };
 
+  // NOTE: login disabled in order to avoid inordinately high AWS bill
   return (
 	<>
     <AppBar style={{ backgroundColor: "#F5F5F5" }}>
@@ -214,7 +215,6 @@ function NavBar() {
               </Button>
             ))}
           </Box>
-
           {/* {user && (
             <Box sx={{ display: { xs: "none", md: "inline"},  mx: 2 }}>
               <Typography variant="body1" sx={{color: "#1f1e1e", display: "inline", mr: 1 }}>

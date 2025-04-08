@@ -48,7 +48,6 @@ const Form: React.FC = () => {
           outageData[0].coordinates[0]
         ],
       };
-      console.log(locationData);
     }
 
     const requestData: any = {
@@ -57,9 +56,6 @@ const Form: React.FC = () => {
 
     if (data.description) requestData.description = data.description;
     if (data.cause) requestData.cause = data.cause;
-    console.log("Form submitted:", requestData);
-
-    // createOutage(requestData);
 
     try {
       const response = await fetch(
@@ -94,7 +90,7 @@ const Form: React.FC = () => {
         alignItems: "center",
         minHeight: "100vh",
         background: "linear-gradient(135deg, #eef2ff, #dfe7fd)",
-        p: 2,
+        p: 6,
       }}
     >
       <Card
