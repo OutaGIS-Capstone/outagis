@@ -75,7 +75,7 @@ const Outage: React.FC = () => {
 
   useEffect(() => {
     if (!outageData || !outageData.geojson) return;
-
+    console.log(outageData.geojson.geometry);
     const webMap = new WebMap({ portalItem: { id: "65b663af59944a2dac3834f34d48b9c9" } });
     const mapView = new MapView({ 
       container: "mapViewDiv", 
@@ -168,7 +168,7 @@ const Outage: React.FC = () => {
   };
 
   const saveOutage = async () => {
-    if (!graphics.length || !formData || !view) {
+    if (!formData || !view) {
       console.error("Missing required data");
       return;
     }
@@ -177,37 +177,76 @@ const Outage: React.FC = () => {
     setError(null);
   
     try {
-      const geometry = graphics[0].geometry.clone();
-      let coordinates;
+      let geometryChanged = false;
+      let coordinates: any = null;
   
-      if (view.spatialReference.isWebMercator) {
-        if (geometry.type === "point") {
-          const point = webMercatorUtils.webMercatorToGeographic(geometry) as Point;
-          coordinates = [point.longitude, point.latitude];
-        } else if (geometry.type === "polygon") {
-          const polygon = webMercatorUtils.webMercatorToGeographic(geometry) as Polygon;
-          coordinates = polygon.rings;
+      if (graphics.length) {
+        const geometry = graphics[0].geometry.clone();
+  
+        if (view.spatialReference.isWebMercator) {
+          if (geometry.type === "point") {
+            const point = webMercatorUtils.webMercatorToGeographic(geometry) as Point;
+            const { longitude, latitude } = point;
+            if (longitude >= -148 && longitude <= -100) {
+              coordinates = [longitude, latitude];
+            } else {
+              console.warn("Skipping geometry update: Point longitude out of bounds", longitude);
+            }
+          } else if (geometry.type === "polygon") {
+            const polygon = webMercatorUtils.webMercatorToGeographic(geometry) as Polygon;
+            const rings = polygon.rings;
+            const allLongitudesValid = rings[0].every(([lng, _]) => lng >= -148 && lng <= -100);
+            if (allLongitudesValid) {
+              coordinates = rings;
+            } else {
+              console.warn("Skipping geometry update: Polygon has out-of-bounds longitude");
+            }
+          }
+        } else {
+          if (geometry.type === "point") {
+            const { longitude, latitude } = geometry as Point;
+            if (longitude >= -148 && longitude <= -100) {
+              coordinates = [longitude, latitude];
+            } else {
+              console.warn("Skipping geometry update: Point longitude out of bounds", longitude);
+            }
+          } else if (geometry.type === "polygon") {
+            const rings = (geometry as Polygon).rings;
+            const allLongitudesValid = rings[0].every(([lng, _]) => lng >= -148 && lng <= -100);
+            if (allLongitudesValid) {
+              coordinates = rings;
+            } else {
+              console.warn("Skipping geometry update: Polygon has out-of-bounds longitude");
+            }
+          }
         }
-      } else {
-        if (geometry.type === "point") {
-          coordinates = [geometry.longitude, geometry.latitude];
-        } else if (geometry.type === "polygon") {
-          coordinates = geometry.rings;
+  
+        if (coordinates) {
+          const originalGeometry = outageData.geojson.geometry;
+          const newGeometry = {
+            type: geometry.type,
+            coordinates
+          };
+  
+          geometryChanged = JSON.stringify(originalGeometry) !== JSON.stringify(newGeometry);
         }
       }
   
-      const outageUpdate = {
+      // Build the payload
+      const outageUpdate: any = {
         description: formData.description,
-        type: "Feature",
-        location: {
-          type: geometry.type,
-          coordinates: coordinates
-        },
         population_affected: formData.population_affected,
         cause: formData.cause,
         eta: formData.eta,
         status: formData.status.toLowerCase()
       };
+  
+      if (geometryChanged && coordinates) {
+        outageUpdate.location = {
+          type: graphics[0].geometry.type,
+          coordinates
+        };
+      }
   
       const response = await fetch(
         `https://y9bwqpgxhk.execute-api.ca-central-1.amazonaws.com/outages/${outageId}`,
@@ -226,7 +265,7 @@ const Outage: React.FC = () => {
       setOutageData(formData);
       setShowSnackbar(true);
       setEditingEnabled(false);
-      
+  
       if (sketchViewModel) {
         sketchViewModel.cancel();
       }
@@ -237,18 +276,20 @@ const Outage: React.FC = () => {
       setIsSaving(false);
     }
   };
+  
+  
 
   const handleDeleteOutage = async () => {
     setIsDeleting(true);
     try {
       const response = await fetch(
-        "https://wehat7vjif.execute-api.ca-central-1.amazonaws.com/default/outagis-delete_outage",
+        `https://y9bwqpgxhk.execute-api.ca-central-1.amazonaws.com/outages/${outageId}`,
         {
           method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ outage_id: outageId }),
+          headers: { "Content-Type": "application/json" }
         }
       );
+    
 
       if (!response.ok) {
         throw new Error("Failed to delete outage");
@@ -399,22 +440,32 @@ const Outage: React.FC = () => {
             />
   
             <TextField
-              label="Estimated Restoration Time"
-              value={formData.eta}
-              onChange={(e) => setFormData({ ...formData, eta: e.target.value })}
-              disabled={!isAdmin}
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  borderRadius: "8px",
-                  '& fieldset': {
-                    borderColor: "#d2d2d7",
-                  },
-                  '&:hover fieldset': {
-                    borderColor: "#86868b",
-                  },
-                }
-              }}
-            />
+            label="Estimated Restoration Time"
+            value={formData.eta}
+            onChange={(e) => setFormData({ ...formData, eta: e.target.value })}
+            disabled={!isAdmin}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                borderRadius: "8px",
+                '& fieldset': {
+                  borderColor: "#d2d2d7",
+                },
+                '&:hover fieldset': {
+                  borderColor: "#86868b",
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: "#86868b",
+              }
+            }}
+            InputProps={{
+              style: {
+                color: "#1d1d1f"
+              }
+            }}
+            placeholder="e.g., 2025-04-07T16:33:04.476775+00:00"
+          />
+
           </Box>
         )}
   

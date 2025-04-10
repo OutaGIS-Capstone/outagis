@@ -191,6 +191,7 @@ const Report: React.FC = () => {
   };
 
   const handleNext = () => {
+
     navigate("/report-form", { state: { outageData } });
   };
   const handleTutorial = () => {

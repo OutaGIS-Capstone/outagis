@@ -1,5 +1,5 @@
-import React, { useState, useEffect, startTransition } from "react";
-import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Link, Button, Alert, TablePagination } from "@mui/material";
+import React, { useState, useEffect, startTransition, useMemo } from "react";
+import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Link, Button, Alert, TablePagination, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const OutageList: React.FC = () => {
@@ -14,6 +14,10 @@ const OutageList: React.FC = () => {
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };  
+
+  const paginatedRows = useMemo(() => {
+    return outagesData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  }, [outagesData, page, rowsPerPage]);
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
@@ -79,7 +83,6 @@ const OutageList: React.FC = () => {
       .then((data) => {
         const regionOutages = data.reduce((acc: any, outage: any) => {
           const region = outage.region || "Unknown Region";
-          console.log(region)
           if (!acc[region]) acc[region] = { outages: 0, customers: 0 };
           acc[region].outages += 1;
           acc[region].customers += 1;
@@ -146,6 +149,12 @@ const OutageList: React.FC = () => {
           </Alert>
         )}
 
+      {outagesData.length === 0 ? (
+        <Box sx={{ textAlign: "center", mt: 4 }}>
+          <CircularProgress />
+          <Typography variant="body2" mt={2}>Loading outage data...</Typography>
+        </Box>
+      ) : (
         <TableContainer component={Paper} sx={{ my: 3 }}>
           <Table>
             <TableHead>
@@ -156,7 +165,7 @@ const OutageList: React.FC = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {outagesData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+              {paginatedRows.map((row, index) => (
                 <TableRow
                   key={index}
                   onClick={() => navigate(`/region/${encodeURIComponent(row.region)}`)}
@@ -177,7 +186,7 @@ const OutageList: React.FC = () => {
             </TableBody>
           </Table>
         </TableContainer>
-
+          )}
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
