@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, startTransition } from "react";
 import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Link, Button, Alert, TablePagination } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -36,34 +36,82 @@ const OutageList: React.FC = () => {
       });
   }, []);
 
+  const STATIC_REGIONS = [
+    "Regional District of Bulkley-Nechako",
+    "Cariboo Regional District",
+    "Regional District of Fraser-Fort George",
+    "Regional District of Kitimat-Stikine",
+    "Peace River Regional District",
+    "North Coast Regional District",
+    "Regional District of Central Okanagan",
+    "Fraser Valley Regional District",
+    "Metro Vancouver Regional District",
+    "Regional District of Okanagan-Similkameen",
+    "Squamish-Lillooet Regional District",
+    "Thompson-Nicola Regional District",
+    "Regional District of Central Kootenay",
+    "Columbia Shuswap Regional District",
+    "Regional District of East Kootenay",
+    "Regional District of Kootenay Boundary",
+    "Regional District of North Okanagan",
+    "Regional District of Alberni-Clayoquot",
+    "Capital Regional District",
+    "Central Coast Regional District",
+    "Comox Valley Regional District",
+    "Cowichan Valley Regional District",
+    "Regional District of Mount Waddington",
+    "Regional District of Nanaimo",
+    "qathet Regional District",
+    "Sunshine Coast Regional District",
+    "Strathcona Regional District",
+    "Stikine Region (Unincorporated)",
+  ];
+  
   useEffect(() => {
     setLoading(true);
-    fetch("https://ceu2tpg6ok.execute-api.ca-central-1.amazonaws.com/default/outagis-retrieve_all_outages")
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000); // Abort after 5 seconds
+  
+    fetch("https://ceu2tpg6ok.execute-api.ca-central-1.amazonaws.com/default/outagis-retrieve_all_outages", {
+      signal: controller.signal
+    })
       .then((response) => response.json())
       .then((data) => {
         const regionOutages = data.reduce((acc: any, outage: any) => {
-          const region = outage.region || "Unknown Region"; 
-          if (!acc[region]) acc[region] = { outages: 0, customers: 0 }; 
+          const region = outage.region || "Unknown Region";
+          console.log(region)
+          if (!acc[region]) acc[region] = { outages: 0, customers: 0 };
           acc[region].outages += 1;
           acc[region].customers += 1;
           return acc;
         }, {});
-
+  
         const groupedOutages = Object.entries(regionOutages).map(([region, { outages, customers }]) => ({
           region,
           outages,
           customers,
         }));
-
-        setOutagesData(groupedOutages);
+  
+        startTransition(() => {
+          setOutagesData(groupedOutages);
+        });        
         setLoading(false);
       })
       .catch((error) => {
-		console.error(error);
-        setError("Failed to load data");
+        console.error("Falling back to static region list due to error or timeout:", error);
+        const staticData = STATIC_REGIONS.map((region) => ({
+          region,
+          outages: 0,
+          customers: 0,
+        }));
+        setOutagesData(staticData);
+        setError("Failed to load dynamic outage data. Showing static list.");
         setLoading(false);
       });
+  
+    return () => clearTimeout(timeout);
   }, []);
+  
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
@@ -134,7 +182,7 @@ const OutageList: React.FC = () => {
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={outagesData.length}
-          rowsPerPage={-1}  
+          rowsPerPage={rowsPerPage}  
           page={page}
           onPageChange={handleChangePage} 
           onRowsPerPageChange={handleChangeRowsPerPage}
